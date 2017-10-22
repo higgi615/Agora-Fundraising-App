@@ -5,7 +5,7 @@
       <fieldset>
         <div class="form-group" show-errors>
           <label for="role">Role</label>
-          <input type="text" id="role" name="role" class="form-control" ng-model="credentials.roles" placeholder="Ex - 'Organization' or 'business'" required>
+          <input type="text" id="role" name="role" class="form-control" ng-model="credentials.roles" placeholder="Ex - 'Organization' or 'Business'" required>
           <div ng-messages="userForm.roles.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Role is required.</p>
           </div>
@@ -61,11 +61,11 @@
         <!--</div>-->
         <div class="form-group" show-errors>
           <div>
-            <label><center>Contact</center></label>
+            <label>Contact Information</label>
           </div>
           <div>
             <label for="firstName">First Name</label>
-            <input type="contact.firstName" id="firstName" name="firstName" class="form-control" ng-model="credentials.contact.firstName" placeholder="First Name">
+            <input type="contact.firstName" id="firstName" name="firstName" class="form-control" ng-model="credentials.contact.firstName" placeholder="Ex - 'John'">
             <div ng-messages="userForm.contact.firstName.$error" role="alert">
               <p class="help-block error-text" ng-message="required">First name is required.</p>
             </div>
@@ -73,14 +73,14 @@
 
           <div>
             <label for="lastName">Last Name</label>
-            <input type="contact.lastName" id="lastName" name="lastName" class="form-control" ng-model="credentials.contact.lastName" placeholder="Last Name">
+            <input type="contact.lastName" id="lastName" name="lastName" class="form-control" ng-model="credentials.contact.lastName" placeholder="Ex - 'Doe'">
             <div ng-messages="userForm.contact.lastName.$error" role="alert">
               <p class="help-block error-text" ng-message="required">Last name is required.</p>
             </div>
           </div>
           <div>
             <label for="phoneNumber">Phone Number</label>
-            <input type="contact.phoneNumber" id="phoneNumber" name="phoneNumber" class="form-control" ng-model="credentials.contact.phoneNumber" placeholder="Phone Number">
+            <input type="contact.phoneNumber" id="phoneNumber" name="phoneNumber" class="form-control" ng-model="credentials.contact.phoneNumber" placeholder="Ex - '1234567890'">
             <div ng-messages="userForm.contact.lastName.$error" role="alert">
               <p class="help-block error-text" ng-message="required">Phone number is required.</p>
             </div>
