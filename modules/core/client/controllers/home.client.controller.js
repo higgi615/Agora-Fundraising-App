@@ -4,7 +4,26 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
   function ($scope, Authentication, $location) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
-    $scope.signedIn = 0;
+    //$scope.signedIn = 0;
+
+    $scope.eventList = [
+      {
+        bizName: 'Blaze',
+        date: '10/17/17',
+        status: 'Pending'
+      }, {
+        bizName: 'Taco Bell',
+        date: '11/12/23',
+        status: 'Confirmed'
+      }, {
+        bizName: 'Blaze',
+        date: '10/17/17',
+        status: 'Pending'
+      }, {
+        bizName: 'Taco Bell',
+        date: '11/12/23',
+        status: 'Confirmed'
+      }];
 
     $scope.isOrg = false;
     $scope.isBiz = false;
