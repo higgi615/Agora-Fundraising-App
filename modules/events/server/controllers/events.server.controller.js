@@ -5,15 +5,15 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Event = mongoose.model('Event'),
+  Events = mongoose.model('Event'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a Event
+ * Create a Events
  */
 exports.create = function (req, res) {
-  var event = new Event(req.body);
+  var event = new Events(req.body);
   event.user = req.user;
 
   event.save(function (err) {
@@ -28,7 +28,7 @@ exports.create = function (req, res) {
 };
 
 /**
- * Show the current Event
+ * Show the current Events
  */
 exports.read = function (req, res) {
   // convert mongoose document to JSON
@@ -42,7 +42,7 @@ exports.read = function (req, res) {
 };
 
 /**
- * Update a Event
+ * Update a Events
  */
 exports.update = function (req, res) {
   var event = req.event;
@@ -61,7 +61,7 @@ exports.update = function (req, res) {
 };
 
 /**
- * Delete an Event
+ * Delete an Events
  */
 exports.delete = function (req, res) {
   var event = req.event;
@@ -78,10 +78,10 @@ exports.delete = function (req, res) {
 };
 
 /**
- * List of Events
+ * List of Eventss
  */
 exports.list = function (req, res) {
-  Event.find().sort('-created').populate('user', 'displayName').exec(function (err, events) {
+  Events.find().sort('-created').populate('user', 'displayName').exec(function (err, events) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -93,22 +93,22 @@ exports.list = function (req, res) {
 };
 
 /**
- * Event middleware
+ * Events middleware
  */
 exports.eventByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Event is invalid'
+      message: 'Events is invalid'
     });
   }
 
-  Event.findById(id).populate('user', 'displayName').exec(function (err, event) {
+  Events.findById(id).populate('user', 'displayName').exec(function (err, event) {
     if (err) {
       return next(err);
     } else if (!event) {
       return res.status(404).send({
-        message: 'No Event with that identifier has been found'
+        message: 'No Events with that identifier has been found'
       });
     }
     req.event = event;

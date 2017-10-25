@@ -5,7 +5,7 @@ var should = require('should'),
   path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
-  Event = mongoose.model('Event'),
+  Events = mongoose.model('Event'),
   express = require(path.resolve('./config/lib/express'));
 
 /**
@@ -15,12 +15,12 @@ var app,
   agent,
   credentials,
   user,
-  event;
+  events;
 
 /**
- * Event routes tests
+ * Events routes tests
  */
-describe('Event CRUD tests', function () {
+describe('Events CRUD tests', function () {
 
   before(function (done) {
     // Get application
@@ -48,17 +48,17 @@ describe('Event CRUD tests', function () {
       provider: 'local'
     });
 
-    // Save a user to the test db and create new Event
+    // Save a user to the test db and create new Events
     user.save(function () {
-      event = {
-        name: 'Event name'
+      events = {
+        name: 'Events name'
       };
 
       done();
     });
   });
 
-  it('should be able to save a Event if logged in', function (done) {
+  it('should be able to save a Events if logged in', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -71,30 +71,30 @@ describe('Event CRUD tests', function () {
         // Get the userId
         var userId = user.id;
 
-        // Save a new Event
-        agent.post('/api/events')
-          .send(event)
+        // Save a new Events
+        agent.post('/api/eventss')
+          .send(events)
           .expect(200)
-          .end(function (eventSaveErr, eventSaveRes) {
-            // Handle Event save error
-            if (eventSaveErr) {
-              return done(eventSaveErr);
+          .end(function (eventsSaveErr, eventsSaveRes) {
+            // Handle Events save error
+            if (eventsSaveErr) {
+              return done(eventsSaveErr);
             }
 
-            // Get a list of Events
-            agent.get('/api/events')
-              .end(function (eventsGetErr, eventsGetRes) {
-                // Handle Events save error
-                if (eventsGetErr) {
-                  return done(eventsGetErr);
+            // Get a list of Eventss
+            agent.get('/api/eventss')
+              .end(function (eventssGetErr, eventssGetRes) {
+                // Handle Eventss save error
+                if (eventssGetErr) {
+                  return done(eventssGetErr);
                 }
 
-                // Get Events list
-                var events = eventsGetRes.body;
+                // Get Eventss list
+                var eventss = eventssGetRes.body;
 
                 // Set assertions
-                (events[0].user._id).should.equal(userId);
-                (events[0].name).should.match('Event name');
+                (eventss[0].user._id).should.equal(userId);
+                (eventss[0].name).should.match('Events name');
 
                 // Call the assertion callback
                 done();
@@ -103,19 +103,19 @@ describe('Event CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an Event if not logged in', function (done) {
-    agent.post('/api/events')
-      .send(event)
+  it('should not be able to save an Events if not logged in', function (done) {
+    agent.post('/api/eventss')
+      .send(events)
       .expect(403)
-      .end(function (eventSaveErr, eventSaveRes) {
+      .end(function (eventsSaveErr, eventsSaveRes) {
         // Call the assertion callback
-        done(eventSaveErr);
+        done(eventsSaveErr);
       });
   });
 
-  it('should not be able to save an Event if no name is provided', function (done) {
+  it('should not be able to save an Events if no name is provided', function (done) {
     // Invalidate name field
-    event.name = '';
+    events.name = '';
 
     agent.post('/api/auth/signin')
       .send(credentials)
@@ -129,21 +129,21 @@ describe('Event CRUD tests', function () {
         // Get the userId
         var userId = user.id;
 
-        // Save a new Event
-        agent.post('/api/events')
-          .send(event)
+        // Save a new Events
+        agent.post('/api/eventss')
+          .send(events)
           .expect(400)
-          .end(function (eventSaveErr, eventSaveRes) {
+          .end(function (eventsSaveErr, eventsSaveRes) {
             // Set message assertion
-            (eventSaveRes.body.message).should.match('Please fill Event name');
+            (eventsSaveRes.body.message).should.match('Please fill Events name');
 
-            // Handle Event save error
-            done(eventSaveErr);
+            // Handle Events save error
+            done(eventsSaveErr);
           });
       });
   });
 
-  it('should be able to update an Event if signed in', function (done) {
+  it('should be able to update an Events if signed in', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -156,32 +156,32 @@ describe('Event CRUD tests', function () {
         // Get the userId
         var userId = user.id;
 
-        // Save a new Event
-        agent.post('/api/events')
-          .send(event)
+        // Save a new Events
+        agent.post('/api/eventss')
+          .send(events)
           .expect(200)
-          .end(function (eventSaveErr, eventSaveRes) {
-            // Handle Event save error
-            if (eventSaveErr) {
-              return done(eventSaveErr);
+          .end(function (eventsSaveErr, eventsSaveRes) {
+            // Handle Events save error
+            if (eventsSaveErr) {
+              return done(eventsSaveErr);
             }
 
-            // Update Event name
-            event.name = 'WHY YOU GOTTA BE SO MEAN?';
+            // Update Events name
+            events.name = 'WHY YOU GOTTA BE SO MEAN?';
 
-            // Update an existing Event
-            agent.put('/api/events/' + eventSaveRes.body._id)
-              .send(event)
+            // Update an existing Events
+            agent.put('/api/eventss/' + eventsSaveRes.body._id)
+              .send(events)
               .expect(200)
-              .end(function (eventUpdateErr, eventUpdateRes) {
-                // Handle Event update error
-                if (eventUpdateErr) {
-                  return done(eventUpdateErr);
+              .end(function (eventsUpdateErr, eventsUpdateRes) {
+                // Handle Events update error
+                if (eventsUpdateErr) {
+                  return done(eventsUpdateErr);
                 }
 
                 // Set assertions
-                (eventUpdateRes.body._id).should.equal(eventSaveRes.body._id);
-                (eventUpdateRes.body.name).should.match('WHY YOU GOTTA BE SO MEAN?');
+                (eventsUpdateRes.body._id).should.equal(eventsSaveRes.body._id);
+                (eventsUpdateRes.body.name).should.match('WHY YOU GOTTA BE SO MEAN?');
 
                 // Call the assertion callback
                 done();
@@ -190,14 +190,14 @@ describe('Event CRUD tests', function () {
       });
   });
 
-  it('should be able to get a list of Events if not signed in', function (done) {
-    // Create new Event model instance
-    var eventObj = new Event(event);
+  it('should be able to get a list of Eventss if not signed in', function (done) {
+    // Create new Events model instance
+    var eventsObj = new Events(events);
 
-    // Save the event
-    eventObj.save(function () {
-      // Request Events
-      request(app).get('/api/events')
+    // Save the events
+    eventsObj.save(function () {
+      // Request Eventss
+      request(app).get('/api/eventss')
         .end(function (req, res) {
           // Set assertion
           res.body.should.be.instanceof(Array).and.have.lengthOf(1);
@@ -209,16 +209,16 @@ describe('Event CRUD tests', function () {
     });
   });
 
-  it('should be able to get a single Event if not signed in', function (done) {
-    // Create new Event model instance
-    var eventObj = new Event(event);
+  it('should be able to get a single Events if not signed in', function (done) {
+    // Create new Events model instance
+    var eventsObj = new Events(events);
 
-    // Save the Event
-    eventObj.save(function () {
-      request(app).get('/api/events/' + eventObj._id)
+    // Save the Events
+    eventsObj.save(function () {
+      request(app).get('/api/eventss/' + eventsObj._id)
         .end(function (req, res) {
           // Set assertion
-          res.body.should.be.instanceof(Object).and.have.property('name', event.name);
+          res.body.should.be.instanceof(Object).and.have.property('name', events.name);
 
           // Call the assertion callback
           done();
@@ -226,31 +226,31 @@ describe('Event CRUD tests', function () {
     });
   });
 
-  it('should return proper error for single Event with an invalid Id, if not signed in', function (done) {
+  it('should return proper error for single Events with an invalid Id, if not signed in', function (done) {
     // test is not a valid mongoose Id
-    request(app).get('/api/events/test')
+    request(app).get('/api/eventss/test')
       .end(function (req, res) {
         // Set assertion
-        res.body.should.be.instanceof(Object).and.have.property('message', 'Event is invalid');
+        res.body.should.be.instanceof(Object).and.have.property('message', 'Events is invalid');
 
         // Call the assertion callback
         done();
       });
   });
 
-  it('should return proper error for single Event which doesnt exist, if not signed in', function (done) {
-    // This is a valid mongoose Id but a non-existent Event
-    request(app).get('/api/events/559e9cd815f80b4c256a8f41')
+  it('should return proper error for single Events which doesnt exist, if not signed in', function (done) {
+    // This is a valid mongoose Id but a non-existent Events
+    request(app).get('/api/eventss/559e9cd815f80b4c256a8f41')
       .end(function (req, res) {
         // Set assertion
-        res.body.should.be.instanceof(Object).and.have.property('message', 'No Event with that identifier has been found');
+        res.body.should.be.instanceof(Object).and.have.property('message', 'No Events with that identifier has been found');
 
         // Call the assertion callback
         done();
       });
   });
 
-  it('should be able to delete an Event if signed in', function (done) {
+  it('should be able to delete an Events if signed in', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -263,28 +263,28 @@ describe('Event CRUD tests', function () {
         // Get the userId
         var userId = user.id;
 
-        // Save a new Event
-        agent.post('/api/events')
-          .send(event)
+        // Save a new Events
+        agent.post('/api/eventss')
+          .send(events)
           .expect(200)
-          .end(function (eventSaveErr, eventSaveRes) {
-            // Handle Event save error
-            if (eventSaveErr) {
-              return done(eventSaveErr);
+          .end(function (eventsSaveErr, eventsSaveRes) {
+            // Handle Events save error
+            if (eventsSaveErr) {
+              return done(eventsSaveErr);
             }
 
-            // Delete an existing Event
-            agent.delete('/api/events/' + eventSaveRes.body._id)
-              .send(event)
+            // Delete an existing Events
+            agent.delete('/api/eventss/' + eventsSaveRes.body._id)
+              .send(events)
               .expect(200)
-              .end(function (eventDeleteErr, eventDeleteRes) {
-                // Handle event error error
-                if (eventDeleteErr) {
-                  return done(eventDeleteErr);
+              .end(function (eventsDeleteErr, eventsDeleteRes) {
+                // Handle events error error
+                if (eventsDeleteErr) {
+                  return done(eventsDeleteErr);
                 }
 
                 // Set assertions
-                (eventDeleteRes.body._id).should.equal(eventSaveRes.body._id);
+                (eventsDeleteRes.body._id).should.equal(eventsSaveRes.body._id);
 
                 // Call the assertion callback
                 done();
@@ -293,30 +293,30 @@ describe('Event CRUD tests', function () {
       });
   });
 
-  it('should not be able to delete an Event if not signed in', function (done) {
-    // Set Event user
-    event.user = user;
+  it('should not be able to delete an Events if not signed in', function (done) {
+    // Set Events user
+    events.user = user;
 
-    // Create new Event model instance
-    var eventObj = new Event(event);
+    // Create new Events model instance
+    var eventsObj = new Events(events);
 
-    // Save the Event
-    eventObj.save(function () {
-      // Try deleting Event
-      request(app).delete('/api/events/' + eventObj._id)
+    // Save the Events
+    eventsObj.save(function () {
+      // Try deleting Events
+      request(app).delete('/api/eventss/' + eventsObj._id)
         .expect(403)
-        .end(function (eventDeleteErr, eventDeleteRes) {
+        .end(function (eventsDeleteErr, eventsDeleteRes) {
           // Set message assertion
-          (eventDeleteRes.body.message).should.match('User is not authorized');
+          (eventsDeleteRes.body.message).should.match('User is not authorized');
 
-          // Handle Event error error
-          done(eventDeleteErr);
+          // Handle Events error error
+          done(eventsDeleteErr);
         });
 
     });
   });
 
-  it('should be able to get a single Event that has an orphaned user reference', function (done) {
+  it('should be able to get a single Events that has an orphaned user reference', function (done) {
     // Create orphan user creds
     var _creds = {
       username: 'orphan',
@@ -352,22 +352,22 @@ describe('Event CRUD tests', function () {
           // Get the userId
           var orphanId = orphan._id;
 
-          // Save a new Event
-          agent.post('/api/events')
-            .send(event)
+          // Save a new Events
+          agent.post('/api/eventss')
+            .send(events)
             .expect(200)
-            .end(function (eventSaveErr, eventSaveRes) {
-              // Handle Event save error
-              if (eventSaveErr) {
-                return done(eventSaveErr);
+            .end(function (eventsSaveErr, eventsSaveRes) {
+              // Handle Events save error
+              if (eventsSaveErr) {
+                return done(eventsSaveErr);
               }
 
-              // Set assertions on new Event
-              (eventSaveRes.body.name).should.equal(event.name);
-              should.exist(eventSaveRes.body.user);
-              should.equal(eventSaveRes.body.user._id, orphanId);
+              // Set assertions on new Events
+              (eventsSaveRes.body.name).should.equal(events.name);
+              should.exist(eventsSaveRes.body.user);
+              should.equal(eventsSaveRes.body.user._id, orphanId);
 
-              // force the Event to have an orphaned user reference
+              // force the Events to have an orphaned user reference
               orphan.remove(function () {
                 // now signin with valid user
                 agent.post('/api/auth/signin')
@@ -379,19 +379,19 @@ describe('Event CRUD tests', function () {
                       return done(err);
                     }
 
-                    // Get the Event
-                    agent.get('/api/events/' + eventSaveRes.body._id)
+                    // Get the Events
+                    agent.get('/api/eventss/' + eventsSaveRes.body._id)
                       .expect(200)
-                      .end(function (eventInfoErr, eventInfoRes) {
-                        // Handle Event error
-                        if (eventInfoErr) {
-                          return done(eventInfoErr);
+                      .end(function (eventsInfoErr, eventsInfoRes) {
+                        // Handle Events error
+                        if (eventsInfoErr) {
+                          return done(eventsInfoErr);
                         }
 
                         // Set assertions
-                        (eventInfoRes.body._id).should.equal(eventSaveRes.body._id);
-                        (eventInfoRes.body.name).should.equal(event.name);
-                        should.equal(eventInfoRes.body.user, undefined);
+                        (eventsInfoRes.body._id).should.equal(eventsSaveRes.body._id);
+                        (eventsInfoRes.body.name).should.equal(events.name);
+                        should.equal(eventsInfoRes.body.user, undefined);
 
                         // Call the assertion callback
                         done();
@@ -405,7 +405,7 @@ describe('Event CRUD tests', function () {
 
   afterEach(function (done) {
     User.remove().exec(function () {
-      Event.remove().exec(done);
+      Events.remove().exec(done);
     });
   });
 });
