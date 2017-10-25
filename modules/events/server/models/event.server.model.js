@@ -10,21 +10,27 @@ var mongoose = require('mongoose'),
  * Event Schema
  */
 var EventSchema = new Schema({
-  eventName: {
+  name: {
     type: String,
-    default: 'Business name'    // check this
-  },
-  business: {
-    type: String
+    default: '',
+    required: 'Please fill Event name.',
+    trim: true
   },
   dateOfEvent: {
-    type: String
+    type: Date, // Possibly make type String??
+    required: 'Please enter the date of an event.'
   },
-  timeOfEvent: {
-    type: String
+  startTime: {
+    type: String,
+    required: 'Please enter a start time.'
   },
-  locationOfEvent: {
-    type: String
+  endTime: {
+    type: String,
+    required: 'Please enter an end time.'
+  },
+  location: {
+    type: String,
+    required: 'Please enter a location for the event.'
   },
   organizationsPending: [{
     organizationName: String
@@ -32,39 +38,79 @@ var EventSchema = new Schema({
   organizationConfirmed: {
     type: String
   },
-  eventImage: {    // check this
-    type: String,
-    default: 'modules/users/client/img/profile/default.png'   // business avatar
-  },
-  businessContact: {
-    firstName: {
-      type: String
-    },
-    lastName: {
-      type: String
-    },
-    phoneNumber: {
-      type: String
-    }
-  },
-  organizationContact: {
-    firstName: {
-      type: String
-    },
-    lastName: {
-      type: String
-    },
-    phoneNumber: {
-      type: String
-    }
-  },
-  updated: {
-    type: Date
+  taxIdRequired: {
+    type: Boolean
   },
   created: {
     type: Date,
     default: Date.now
+  },
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User'
   }
 });
 
 mongoose.model('Event', EventSchema);
+
+//
+// /**
+//  * OLDEvent Schema
+//  */
+// var EventSchema = new Schema({
+//   eventName: {
+//     type: String,
+//     default: 'Business name'    // check this
+//   },
+//   business: {
+//     type: String
+//   },
+//   dateOfEvent: {
+//     type: String
+//   },
+//   timeOfEvent: {
+//     type: String
+//   },
+//   locationOfEvent: {
+//     type: String
+//   },
+//   organizationsPending: [{
+//     organizationName: String
+//   }],
+//   organizationConfirmed: {
+//     type: String
+//   },
+//   eventImage: {    // check this
+//     type: String,
+//     default: 'modules/users/client/img/profile/default.png'   // business avatar
+//   },
+//   businessContact: {
+//     firstName: {
+//       type: String
+//     },
+//     lastName: {
+//       type: String
+//     },
+//     phoneNumber: {
+//       type: String
+//     }
+//   },
+//   organizationContact: {
+//     firstName: {
+//       type: String
+//     },
+//     lastName: {
+//       type: String
+//     },
+//     phoneNumber: {
+//       type: String
+//     }
+//   },
+//   updated: {
+//     type: Date
+//   },
+//   created: {
+//     type: Date,
+//     default: Date.now
+//   }
+// });

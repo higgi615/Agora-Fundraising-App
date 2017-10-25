@@ -12,11 +12,11 @@ var path = require('path'),
 /**
  * Create a Event
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var event = new Event(req.body);
   event.user = req.user;
 
-  event.save(function(err) {
+  event.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,7 +30,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Event
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var event = req.event ? req.event.toJSON() : {};
 
@@ -44,12 +44,12 @@ exports.read = function(req, res) {
 /**
  * Update a Event
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var event = req.event;
 
   event = _.extend(event, req.body);
 
-  event.save(function(err) {
+  event.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -63,10 +63,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Event
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var event = req.event;
 
-  event.remove(function(err) {
+  event.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,8 +80,8 @@ exports.delete = function(req, res) {
 /**
  * List of Events
  */
-exports.list = function(req, res) {
-  Event.find().sort('-created').populate('user', 'displayName').exec(function(err, events) {
+exports.list = function (req, res) {
+  Event.find().sort('-created').populate('user', 'displayName').exec(function (err, events) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -95,7 +95,7 @@ exports.list = function(req, res) {
 /**
  * Event middleware
  */
-exports.eventByID = function(req, res, next, id) {
+exports.eventByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({

@@ -21,24 +21,24 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/events/:eventId',
       permissions: '*'
     }]
-  }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/events',
-      permissions: ['get', 'post']
-    }, {
-      resources: '/api/events/:eventId',
-      permissions: ['get']
-    }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/events',
-      permissions: ['get']
-    }, {
-      resources: '/api/events/:eventId',
-      permissions: ['get']
-    }]
+  // }, {
+  //   roles: ['user'],
+  //   allows: [{
+  //     resources: '/api/events',
+  //     permissions: ['get', 'post']
+  //   }, {
+  //     resources: '/api/events/:eventId',
+  //     permissions: ['get']
+  //   }]
+  // }, {
+  //   roles: ['guest'],
+  //   allows: [{
+  //     resources: '/api/events',
+  //     permissions: ['get']
+  //   }, {
+  //     resources: '/api/events/:eventId',
+  //     permissions: ['get']
+  //   }]
   }]);
 };
 
