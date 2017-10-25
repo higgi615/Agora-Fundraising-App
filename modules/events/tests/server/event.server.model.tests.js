@@ -20,17 +20,28 @@ var user,
 describe('Events Model Unit Tests:', function () {
   beforeEach(function (done) {
     user = new User({
-      firstName: 'Full',
-      lastName: 'Name',
-      displayName: 'Full Name',
-      email: 'test@test.com',
-      username: 'username',
-      password: 'password'
+      roles: 'Business',
+      organization: 'Full',
+      //lastName: 'Name',
+      //displayName: 'Full Name',
+      //email: 'test@test.com',
+      username: 'test@testing.com',
+      password: 'M3@n.jsI$Aw3$0m3',
+      provider: 'local',
+      contact: {
+        firstName: 'Bob',
+        lastName: 'Jones',
+        phoneNumber: '1234567891'
+      }
     });
 
     user.save(function () {
       events = new Events({
-        name: 'Events Name',
+        name: 'Test Event',
+        dateOfEvent: '10-21-2017',
+        startTime: '4:00PM',
+        endTime: '6:00PM',
+        location: '3211 SE 18th CT',
         user: user
       });
 

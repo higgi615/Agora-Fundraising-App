@@ -8,11 +8,11 @@ var eventsPolicy = require('../policies/events.server.policy'),
 
 module.exports = function (app) {
   // Events Routes
-  app.route('/api/events')
+  app.route('/api/events').all(eventsPolicy.isAllowed)
     .get(events.list)
     .post(events.create);
 
-  app.route('/api/events/:eventId')
+  app.route('/api/events/:eventId').all(eventsPolicy.isAllowed)
     .get(events.read)
     .put(events.update)
     .delete(events.delete);

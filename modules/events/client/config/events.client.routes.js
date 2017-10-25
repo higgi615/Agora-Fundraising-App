@@ -32,7 +32,7 @@
           eventResolve: newEvent
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['Business'],
           pageTitle: 'Events Create'
         }
       })
@@ -45,7 +45,7 @@
           eventResolve: getEvent
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['Business'],
           pageTitle: 'Edit Event {{ eventResolve.name }}'
         }
       })

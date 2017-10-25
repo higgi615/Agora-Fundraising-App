@@ -21,24 +21,24 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/events/:eventId',
       permissions: '*'
     }]
-  // }, {
-  //   roles: ['user'],
-  //   allows: [{
-  //     resources: '/api/events',
-  //     permissions: ['get', 'post']
-  //   }, {
-  //     resources: '/api/events/:eventId',
-  //     permissions: ['get']
-  //   }]
-  // }, {
-  //   roles: ['guest'],
-  //   allows: [{
-  //     resources: '/api/events',
-  //     permissions: ['get']
-  //   }, {
-  //     resources: '/api/events/:eventId',
-  //     permissions: ['get']
-  //   }]
+  }, {
+    roles: ['Business'],
+    allows: [{
+      resources: '/api/events',
+      permissions: ['get', 'post']
+    }, {
+      resources: '/api/events/:eventId',
+      permissions: ['get']
+    }]
+  }, {
+    roles: ['user'],
+    allows: [{
+      resources: '/api/events',
+      permissions: ['get']
+    }, {
+      resources: '/api/events/:eventId',
+      permissions: ['get']
+    }]
   }]);
 };
 
@@ -46,7 +46,7 @@ exports.invokeRolesPolicies = function () {
  * Check If Events Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
-  var roles = (req.user) ? req.user.roles : ['guest'];
+  var roles = (req.user) ? req.user.roles : ['user'];
 
   // If an Event is being processed and the current user created it then allow any manipulation
   if (req.event && req.user && req.event.user && req.event.user.id === req.user.id) {

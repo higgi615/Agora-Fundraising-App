@@ -13,7 +13,7 @@ var EventSchema = new Schema({
   name: {
     type: String,
     default: '',
-    required: 'Please fill Event name.',
+    required: 'Please fill Events name.',
     trim: true
   },
   dateOfEvent: {
