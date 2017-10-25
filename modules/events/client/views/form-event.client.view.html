@@ -12,6 +12,34 @@
             <p class="help-block error-text" ng-message="required">Event name is required.</p>
           </div>
         </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="dateOfEvent">Date of Event</label>
+          <input name="name" type="text" ng-model="vm.event.dateOfEvent" id="dateOfEvent" class="form-control" placeholder="Date of Event" required>
+          <div ng-messages="vm.form.eventForm.dateOfEvent.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Date of event is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="startTime">Start Time</label>
+          <input name="name" type="text" ng-model="vm.event.startTime" id="startTime" class="form-control" placeholder="Start time" required>
+          <div ng-messages="vm.form.eventForm.startTime.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Start time is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="endTime">End Time</label>
+          <input name="name" type="text" ng-model="vm.event.endTime" id="endTime" class="form-control" placeholder="End time" required>
+          <div ng-messages="vm.form.eventForm.endTime.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">End time is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="location">Location</label>
+          <input name="name" type="text" ng-model="vm.event.location" id="location" class="form-control" placeholder="Address" required>
+          <div ng-messages="vm.form.eventForm.location.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Address is required.</p>
+          </div>
+        </div>
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.event._id ? 'Update' : 'Create'}}</button>
         </div>

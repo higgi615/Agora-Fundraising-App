@@ -61,8 +61,7 @@ describe('Events CRUD tests', function () {
         dateOfEvent: '10-21-2017',
         startTime: '4:00PM',
         endTime: '6:00PM',
-        location: '3211 SE 18th CT',
-        user: user
+        location: '3211 SE 18th CT'
       };
 
       done();
