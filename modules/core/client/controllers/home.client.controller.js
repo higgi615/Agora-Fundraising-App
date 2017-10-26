@@ -29,9 +29,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     $scope.isBiz = false;
 
     // If the user is either empty or undefined, we want to just be on the default page
-    if ($scope.authentication.user === '' || $scope.authentication.user === undefined) {
+    if ($scope.authentication.user === '') {
       $scope.isOrg = false;
-      $location.path('/');
     }
 
     else if ($scope.authentication.user.roles.indexOf('Organization') >= 0) {
@@ -43,9 +42,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       $scope.isOrg = false;
     }
 
-    if ($scope.authentication.user === '' || $scope.authentication.user === undefined) {
+    if ($scope.authentication.user === '') {
       $scope.isBiz = false;
-      $location.path('/');
     }
 
     else if ($scope.authentication.user.roles.indexOf('Business') >= 0) {
