@@ -50,22 +50,22 @@ exports.update = function (req, res) {
   }
 };
 
-/**
- *  Delete a user account
- */
-exports.delete = function (req, res) {
-  var user = req.user;
-
-  /* Remove the article */
-  user.remove(function(err) {
-    if(err) {
-      res.status(400).send(err);
-    }
-    else {
-      res.end();
-    }
-  });
-};
+// /**
+//  *  Delete a user account
+//  */
+// exports.delete = function (req, res) {
+//   var user = req.user;
+//
+//   /* Remove the article */
+//   user.remove(function(err) {
+//     if(err) {
+//       res.status(400).send(err);
+//     }
+//     else {
+//       res.end();
+//     }
+//   });
+// };
 
 /**
  * Update profile picture

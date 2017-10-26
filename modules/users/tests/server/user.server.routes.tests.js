@@ -469,141 +469,141 @@ describe('User Create/Login/Logout tests:', function () {
   //   });
   // });
   //
-  // it('should be able to change user own password successfully', function (done) {
-  //   agent.post('/api/auth/signin')
-  //     .send(credentials)
-  //     .expect(200)
-  //     .end(function (signinErr, signinRes) {
-  //       // Handle signin error
-  //       if (signinErr) {
-  //         return done(signinErr);
-  //       }
+  it('should be able to change user own password successfully', function (done) {
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Change password
+        agent.post('/api/users/password')
+          .send({
+            newPassword: '1234567890Aa$',
+            verifyPassword: '1234567890Aa$',
+            currentPassword: credentials.password
+          })
+          .expect(200)
+          .end(function (err, res) {
+            if (err) {
+              return done(err);
+            }
+
+            res.body.message.should.equal('Password changed successfully');
+            return done();
+          });
+      });
+  });
   //
-  //       // Change password
-  //       agent.post('/api/users/password')
-  //         .send({
-  //           newPassword: '1234567890Aa$',
-  //           verifyPassword: '1234567890Aa$',
-  //           currentPassword: credentials.password
-  //         })
-  //         .expect(200)
-  //         .end(function (err, res) {
-  //           if (err) {
-  //             return done(err);
-  //           }
+  it('should not be able to change user own password if wrong verifyPassword is given', function (done) {
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Change password
+        agent.post('/api/users/password')
+          .send({
+            newPassword: '1234567890Aa$',
+            verifyPassword: '1234567890-ABC-123-Aa$',
+            currentPassword: credentials.password
+          })
+          .expect(400)
+          .end(function (err, res) {
+            if (err) {
+              return done(err);
+            }
+
+            res.body.message.should.equal('Passwords do not match');
+            return done();
+          });
+      });
+  });
   //
-  //           res.body.message.should.equal('Password changed successfully');
-  //           return done();
-  //         });
-  //     });
-  // });
+  it('should not be able to change user own password if wrong currentPassword is given', function (done) {
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Change password
+        agent.post('/api/users/password')
+          .send({
+            newPassword: '1234567890Aa$',
+            verifyPassword: '1234567890Aa$',
+            currentPassword: 'some_wrong_passwordAa$'
+          })
+          .expect(400)
+          .end(function (err, res) {
+            if (err) {
+              return done(err);
+            }
+
+            res.body.message.should.equal('Current password is incorrect');
+            return done();
+          });
+      });
+  });
   //
-  // it('should not be able to change user own password if wrong verifyPassword is given', function (done) {
-  //   agent.post('/api/auth/signin')
-  //     .send(credentials)
-  //     .expect(200)
-  //     .end(function (signinErr, signinRes) {
-  //       // Handle signin error
-  //       if (signinErr) {
-  //         return done(signinErr);
-  //       }
+  it('should not be able to change user own password if no new password is at all given', function (done) {
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Change password
+        agent.post('/api/users/password')
+          .send({
+            newPassword: '',
+            verifyPassword: '',
+            currentPassword: credentials.password
+          })
+          .expect(400)
+          .end(function (err, res) {
+            if (err) {
+              return done(err);
+            }
+
+            res.body.message.should.equal('Please provide a new password');
+            return done();
+          });
+      });
+  });
   //
-  //       // Change password
-  //       agent.post('/api/users/password')
-  //         .send({
-  //           newPassword: '1234567890Aa$',
-  //           verifyPassword: '1234567890-ABC-123-Aa$',
-  //           currentPassword: credentials.password
-  //         })
-  //         .expect(400)
-  //         .end(function (err, res) {
-  //           if (err) {
-  //             return done(err);
-  //           }
-  //
-  //           res.body.message.should.equal('Passwords do not match');
-  //           return done();
-  //         });
-  //     });
-  // });
-  //
-  // it('should not be able to change user own password if wrong currentPassword is given', function (done) {
-  //   agent.post('/api/auth/signin')
-  //     .send(credentials)
-  //     .expect(200)
-  //     .end(function (signinErr, signinRes) {
-  //       // Handle signin error
-  //       if (signinErr) {
-  //         return done(signinErr);
-  //       }
-  //
-  //       // Change password
-  //       agent.post('/api/users/password')
-  //         .send({
-  //           newPassword: '1234567890Aa$',
-  //           verifyPassword: '1234567890Aa$',
-  //           currentPassword: 'some_wrong_passwordAa$'
-  //         })
-  //         .expect(400)
-  //         .end(function (err, res) {
-  //           if (err) {
-  //             return done(err);
-  //           }
-  //
-  //           res.body.message.should.equal('Current password is incorrect');
-  //           return done();
-  //         });
-  //     });
-  // });
-  //
-  // it('should not be able to change user own password if no new password is at all given', function (done) {
-  //   agent.post('/api/auth/signin')
-  //     .send(credentials)
-  //     .expect(200)
-  //     .end(function (signinErr, signinRes) {
-  //       // Handle signin error
-  //       if (signinErr) {
-  //         return done(signinErr);
-  //       }
-  //
-  //       // Change password
-  //       agent.post('/api/users/password')
-  //         .send({
-  //           newPassword: '',
-  //           verifyPassword: '',
-  //           currentPassword: credentials.password
-  //         })
-  //         .expect(400)
-  //         .end(function (err, res) {
-  //           if (err) {
-  //             return done(err);
-  //           }
-  //
-  //           res.body.message.should.equal('Please provide a new password');
-  //           return done();
-  //         });
-  //     });
-  // });
-  //
-  // it('should not be able to change user own password if no new password is at all given', function (done) {
-  //
-  //   // Change password
-  //   agent.post('/api/users/password')
-  //     .send({
-  //       newPassword: '1234567890Aa$',
-  //       verifyPassword: '1234567890Aa$',
-  //       currentPassword: credentials.password
-  //     })
-  //     .expect(400)
-  //     .end(function (err, res) {
-  //       if (err) {
-  //         return done(err);
-  //       }
-  //
-  //       res.body.message.should.equal('User is not signed in');
-  //       return done();
-  //     });
-  // });
+  it('should not be able to change user own password if no new password is at all given', function (done) {
+
+    // Change password
+    agent.post('/api/users/password')
+      .send({
+        newPassword: '1234567890Aa$',
+        verifyPassword: '1234567890Aa$',
+        currentPassword: credentials.password
+      })
+      .expect(400)
+      .end(function (err, res) {
+        if (err) {
+          return done(err);
+        }
+
+        res.body.message.should.equal('User is not signed in');
+        return done();
+      });
+  });
   //
   // it('should be able to get own user details successfully', function (done) {
   //   agent.post('/api/auth/signin')
@@ -647,46 +647,46 @@ describe('User Create/Login/Logout tests:', function () {
   //     });
   // });
   //
-  // it('should be able to update own user details', function (done) {
-  //   user.roles = ['user'];
-  //
-  //   user.save(function (err) {
-  //     should.not.exist(err);
-  //     agent.post('/api/auth/signin')
-  //       .send(credentials)
-  //       .expect(200)
-  //       .end(function (signinErr, signinRes) {
-  //         // Handle signin error
-  //         if (signinErr) {
-  //           return done(signinErr);
-  //         }
-  //
-  //         var userUpdate = {
-  //           firstName: 'user_update_first',
-  //           lastName: 'user_update_last',
-  //         };
-  //
-  //         agent.put('/api/users')
-  //           .send(userUpdate)
-  //           .expect(200)
-  //           .end(function (userInfoErr, userInfoRes) {
-  //             if (userInfoErr) {
-  //               return done(userInfoErr);
-  //             }
-  //
-  //             userInfoRes.body.should.be.instanceof(Object);
-  //             userInfoRes.body.firstName.should.be.equal('user_update_first');
-  //             userInfoRes.body.lastName.should.be.equal('user_update_last');
-  //             userInfoRes.body.roles.should.be.instanceof(Array).and.have.lengthOf(1);
-  //             userInfoRes.body.roles.indexOf('user').should.equal(0);
-  //             userInfoRes.body._id.should.be.equal(String(user._id));
-  //
-  //             // Call the assertion callback
-  //             return done();
-  //           });
-  //       });
-  //   });
-  // });
+  it('should be able to update own user details', function (done) {
+    user.roles = ['Organization', 'Business'];
+
+    user.save(function (err) {
+      should.not.exist(err);
+      agent.post('/api/auth/signin')
+        .send(credentials)
+        .expect(200)
+        .end(function (signinErr, signinRes) {
+          // Handle signin error
+          if (signinErr) {
+            return done(signinErr);
+          }
+
+          var userUpdate = {
+            organization: 'user_update_first',
+            username: 'user_update_last'
+          };
+
+          agent.put('/api/users')
+            .send(userUpdate)
+            .expect(200)
+            .end(function (userInfoErr, userInfoRes) {
+              if (userInfoErr) {
+                return done(userInfoErr);
+              }
+
+              userInfoRes.body.should.be.instanceof(Object);
+              userInfoRes.body.organization.should.be.equal('user_update_first');
+              userInfoRes.body.username.should.be.equal('user_update_last');
+              //userInfoRes.body.roles.should.be.instanceof(Array).and.have.lengthOf(1);
+              //userInfoRes.body.roles.indexOf('user').should.equal(0);
+              userInfoRes.body._id.should.be.equal(String(user._id));
+
+              // Call the assertion callback
+              return done();
+            });
+        });
+    });
+  });
   //
   // it('should not be able to update own user details and add roles if not admin', function (done) {
   //   user.roles = ['user'];
@@ -730,57 +730,55 @@ describe('User Create/Login/Logout tests:', function () {
   //   });
   // });
   //
-  // it('should not be able to update own user details with existing username', function (done) {
-  //
-  //   var _user2 = _user;
-  //
-  //   _user2.username = 'user2_username';
-  //   _user2.email = 'user2_email@test.com';
-  //
-  //   var credentials2 = {
-  //     username: 'username2',
-  //     password: 'M3@n.jsI$Aw3$0m3'
-  //   };
-  //
-  //   _user2.username = credentials2.username;
-  //   _user2.password = credentials2.password;
-  //
-  //   var user2 = new User(_user2);
-  //
-  //   user2.save(function (err) {
-  //     should.not.exist(err);
-  //
-  //     agent.post('/api/auth/signin')
-  //       .send(credentials2)
-  //       .expect(200)
-  //       .end(function (signinErr, signinRes) {
-  //         // Handle signin error
-  //         if (signinErr) {
-  //           return done(signinErr);
-  //         }
-  //
-  //         var userUpdate = {
-  //           firstName: 'user_update_first',
-  //           lastName: 'user_update_last',
-  //           username: user.username
-  //         };
-  //
-  //         agent.put('/api/users')
-  //           .send(userUpdate)
-  //           .expect(400)
-  //           .end(function (userInfoErr, userInfoRes) {
-  //             if (userInfoErr) {
-  //               return done(userInfoErr);
-  //             }
-  //
-  //             // Call the assertion callback
-  //             userInfoRes.body.message.should.equal('Username already exists');
-  //
-  //             return done();
-  //           });
-  //       });
-  //   });
-  // });
+  it('should not be able to update own user details with existing username', function (done) {
+
+    var _user2 = _user;
+
+    _user2.username = 'user2_username';
+
+    var credentials2 = {
+      username: 'username2',
+      password: 'M3@n.jsI$Aw3$0m3'
+    };
+
+    _user2.username = credentials2.username;
+    _user2.password = credentials2.password;
+
+    var user2 = new User(_user2);
+
+    user2.save(function (err) {
+      should.not.exist(err);
+
+      agent.post('/api/auth/signin')
+        .send(credentials2)
+        .expect(200)
+        .end(function (signinErr, signinRes) {
+          // Handle signin error
+          if (signinErr) {
+            return done(signinErr);
+          }
+
+          var userUpdate = {
+            organization: 'user_update_first',
+            username: user.username
+          };
+
+          agent.put('/api/users')
+            .send(userUpdate)
+            .expect(400)
+            .end(function (userInfoErr, userInfoRes) {
+              if (userInfoErr) {
+                return done(userInfoErr);
+              }
+
+              // Call the assertion callback
+              userInfoRes.body.message.should.equal('11000 duplicate key error collection: mean-test.users index: username already exists');
+
+              return done();
+            });
+        });
+    });
+  });
   //
   // it('should not be able to update own user details with existing email', function (done) {
   //
@@ -834,33 +832,33 @@ describe('User Create/Login/Logout tests:', function () {
   //   });
   // });
   //
-  // it('should not be able to update own user details if not logged-in', function (done) {
-  //   user.roles = ['user'];
-  //
-  //   user.save(function (err) {
-  //
-  //     should.not.exist(err);
-  //
-  //     var userUpdate = {
-  //       firstName: 'user_update_first',
-  //       lastName: 'user_update_last',
-  //     };
-  //
-  //     agent.put('/api/users')
-  //       .send(userUpdate)
-  //       .expect(400)
-  //       .end(function (userInfoErr, userInfoRes) {
-  //         if (userInfoErr) {
-  //           return done(userInfoErr);
-  //         }
-  //
-  //         userInfoRes.body.message.should.equal('User is not signed in');
-  //
-  //         // Call the assertion callback
-  //         return done();
-  //       });
-  //   });
-  // });
+  it('should not be able to update own user details if not logged-in', function (done) {
+    user.roles = ['Organization', 'Business'];
+
+    user.save(function (err) {
+
+      should.not.exist(err);
+
+      var userUpdate = {
+        organization: 'user_update_first',
+        username: 'user_update_last'
+      };
+
+      agent.put('/api/users')
+        .send(userUpdate)
+        .expect(400)
+        .end(function (userInfoErr, userInfoRes) {
+          if (userInfoErr) {
+            return done(userInfoErr);
+          }
+
+          userInfoRes.body.message.should.equal('User is not signed in');
+
+          // Call the assertion callback
+          return done();
+        });
+    });
+  });
   //
   // it('should not be able to update own user profile picture without being logged-in', function (done) {
   //
@@ -933,79 +931,79 @@ describe('User Create/Login/Logout tests:', function () {
   });
 });
 
-describe('User Delete tests:', function () {
-
-  before(function (done) {
-    // Get application
-    app = express.init(mongoose);
-    agent = request.agent(app);
-
-    done();
-  });
-
-  before(function (done) {
-    // Create user credentials
-    credentials = {
-      username: 'full@full.com',
-      password: 'M3@n.jsI$Aw3$0m3'
-    };
-
-    // Create a new user
-    _user = {
-      roles: 'Organization',
-      organization: 'Full',
-      //lastName: 'Name',
-      displayName: 'Full',
-      //email: 'test@test.com',
-      username: credentials.username,
-      password: credentials.password,
-      provider: 'local',
-      contact: {
-        firstName: 'Jon',
-        lastName: 'Doe',
-        phoneNumber: '1231231234'
-      }
-    };
-
-    user = new User(_user);
-
-    // Save a user to the test db and create new article
-    user.save(function (err) {
-      should.not.exist(err);
-      done();
-    });
-  });
-
-  it('should be able to delete user successfully', function (done) {
-    // Sign-in user first
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        // Then, delete the user
-        agent.delete('/api/users/delete')
-          .send(credentials)
-          .expect(302)
-          .end(function (deleteErr, deleteRes) {
-            // Handle delete error
-            if (deleteErr) {
-              return done(deleteErr);
-            }
-          });
-
-        return done();
-      });
-  });
-
-  after(function (done) {
-    app.close();
-
-    done();
-  });
-
-});
+//   describe('User Delete tests:', function () {
+//
+//     before(function (done) {
+//       // Get application
+//       app = express.init(mongoose);
+//       agent = request.agent(app);
+//
+//       done();
+//     });
+//
+//     before(function (done) {
+//       // Create user credentials
+//       credentials = {
+//         username: 'full@full.com',
+//         password: 'M3@n.jsI$Aw3$0m3'
+//       };
+//
+//       // Create a new user
+//       _user = {
+//         roles: 'Organization',
+//         organization: 'Full',
+//         //lastName: 'Name',
+//         displayName: 'Full',
+//         //email: 'test@test.com',
+//         username: credentials.username,
+//         password: credentials.password,
+//         provider: 'local',
+//         contact: {
+//           firstName: 'Jon',
+//           lastName: 'Doe',
+//           phoneNumber: '1231231234'
+//         }
+//       };
+//
+//       user = new User(_user);
+//
+//       // Save a user to the test db and create new article
+//       user.save(function (err) {
+//         should.not.exist(err);
+//         done();
+//       });
+//     });
+//
+//     it('should be able to delete user successfully', function (done) {
+//       // Sign-in user first
+//       agent.post('/api/auth/signin')
+//         .send(credentials)
+//         .expect(200)
+//         .end(function (signinErr, signinRes) {
+//           // Handle signin error
+//           if (signinErr) {
+//             return done(signinErr);
+//           }
+//
+//           // Then, delete the user
+//           agent.delete('/api/users/delete')
+//             .send(credentials)
+//             .expect(302)
+//             .end(function (deleteErr, deleteRes) {
+//               // Handle delete error
+//               if (deleteErr) {
+//                 return done(deleteErr);
+//               }
+//             });
+//
+//           return done();
+//         });
+//     });
+//
+//     after(function (done) {
+//       app.close();
+//
+//       done();
+//     });
+//
+// });
