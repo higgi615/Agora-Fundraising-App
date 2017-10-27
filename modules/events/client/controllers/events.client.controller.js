@@ -40,7 +40,7 @@
       }
 
       function successCallback(res) {
-        $state.go('events.view', {
+        $state.go('dashboard', {
           eventId: res._id
         });
       }
