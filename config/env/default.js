@@ -2,9 +2,9 @@
 
 module.exports = {
   app: {
-    title: 'MEAN.JS',
-    description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
-    keywords: 'mongodb, express, angularjs, node.js, mongoose, passport',
+    title: 'Agora Fundraising',
+    description: 'A community platform for student organizations and local businesses to coordinate fundraising events',
+    keywords: 'Agora, fundraising, event, community',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
   },
   db: {
@@ -53,14 +53,10 @@ module.exports = {
     }
   },
   uploads: {
-    // Storage can be 'local' or 's3'
-    storage: process.env.UPLOADS_STORAGE || 'local',
-    profile: {
-      image: {
-        dest: './modules/users/client/img/profile/uploads/',
-        limits: {
-          fileSize: 1 * 1024 * 1024 // Max file size in bytes (1 MB)
-        }
+    profileUpload: {
+      dest: './modules/users/client/img/profile/uploads/', // Profile upload destination path
+      limits: {
+        fileSize: 1 * 1024 * 1024 // Max file size in bytes (1 MB)
       }
     }
   },

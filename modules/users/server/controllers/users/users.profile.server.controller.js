@@ -42,7 +42,7 @@ exports.update = function (req, res) {
     user = _.extend(user, _.pick(req.body, whitelistedFields));
 
     user.updated = Date.now();
-    user.displayName = user.firstName + ' ' + user.lastName;
+    user.displayName = user.organization;
 
     user.save(function (err) {
       if (err) {

@@ -35,11 +35,16 @@
         return false;
       }
 
-      UsersService.userSignup(vm.credentials)
-        .then(onUserSignupSuccess)
-        .catch(onUserSignupError);
-    }
+      $http.post('/api/auth/signup', $scope.credentials).success(function (response) {
+        // If successful we assign the response to the global user model
+        $scope.authentication.user = response;
 
+        // And redirect to the previous or home page
+        $state.go('dashboard');
+      }).error(function (response) {
+        $scope.error = response.message;
+      });
+    };
     function signin(isValid) {
 
       if (!isValid) {
@@ -48,10 +53,17 @@
         return false;
       }
 
-      UsersService.userSignin(vm.credentials)
-        .then(onUserSigninSuccess)
-        .catch(onUserSigninError);
-    }
+      $http.post('/api/auth/signin', $scope.credentials).success(function (response) {
+        // If successful we assign the response to the global user model
+        $scope.authentication.user = response;
+        //$scope.signedIn = 1;
+
+        // And redirect to the previous or home page
+        $state.go('dashboard');
+      }).error(function (response) {
+        $scope.error = response.message;
+      });
+    };
 
     // OAuth provider request
     function callOauthProvider(url) {

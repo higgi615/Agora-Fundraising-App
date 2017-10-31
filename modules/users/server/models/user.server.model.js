@@ -49,41 +49,37 @@ var validateUsername = function (username) {
 };
 
 /**
- * User Schema
+ * Org Schema
  */
 var UserSchema = new Schema({
-  firstName: {
+  organization: {
     type: String,
     trim: true,
     default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+    validate: [validateLocalStrategyProperty, 'Please fill in your organization/business name']
   },
-  lastName: {
-    type: String,
-    trim: true,
-    default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
-  },
+  // lastName: {
+  //   type: String,
+  //   trim: true,
+  //   default: '',
+  //   validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+  // },
   displayName: {
     type: String,
     trim: true
   },
-  email: {
-    type: String,
-    index: {
-      unique: true,
-      sparse: true // For this to work on a previously indexed field, the index must be dropped & the application restarted.
-    },
-    lowercase: true,
-    trim: true,
-    default: '',
-    validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
-  },
+  // email: {
+  //   type: String,
+  //   unique: true,
+  //   lowercase: true,
+  //   trim: true,
+  //   default: '',
+  //   validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
+  // },
   username: {
     type: String,
-    unique: 'Username already exists',
-    required: 'Please fill in a username',
-    validate: [validateUsername, 'Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.'],
+    unique: 'Email already exists',
+    required: 'Please fill in an email',
     lowercase: true,
     trim: true
   },
@@ -107,10 +103,28 @@ var UserSchema = new Schema({
   roles: {
     type: [{
       type: String,
-      enum: ['user', 'admin']
+      enum: ['Organization', 'Business']
     }],
     default: ['user'],
     required: 'Please provide at least one role'
+  },
+  // schoolName: {
+  //   type: String,
+  //   required: true
+  // },
+  contact: {
+    firstName: {
+      type: String,
+      required: true
+    },
+    lastName: {
+      type: String,
+      required: true
+    },
+    phoneNumber: {
+      type: String,
+      required: true
+    }
   },
   updated: {
     type: Date
@@ -196,17 +210,17 @@ UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
 };
 
 /**
-* Generates a random passphrase that passes the owasp test
-* Returns a promise that resolves with the generated passphrase, or rejects with an error if something goes wrong.
-* NOTE: Passphrases are only tested against the required owasp strength tests, and not the optional tests.
-*/
+ * Generates a random passphrase that passes the owasp test.
+ * Returns a promise that resolves with the generated passphrase, or rejects with an error if something goes wrong.
+ * NOTE: Passphrases are only tested against the required owasp strength tests, and not the optional tests.
+ */
 UserSchema.statics.generateRandomPassphrase = function () {
   return new Promise(function (resolve, reject) {
     var password = '';
     var repeatingCharacters = new RegExp('(.)\\1{2,}', 'g');
 
-    // iterate until the we have a valid passphrase
-    // NOTE: Should rarely iterate more than once, but we need this to ensure no repeating characters are present
+    // iterate until the we have a valid passphrase.
+    // NOTE: Should rarely iterate more than once, but we need this to ensure no repeating characters are present.
     while (password.length < 20 || repeatingCharacters.test(password)) {
       // build the random password
       password = generatePassword.generate({
