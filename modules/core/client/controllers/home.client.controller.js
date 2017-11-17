@@ -1,9 +1,33 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', '$window', '$state', '$http', 'Authentication',
-  function ($scope, $window, $state, $http, Authentication) {
+angular.module('core').controller('HomeController', ['$scope', '$compile', '$window', '$state', '$http', 'Authentication',
+  function ($scope, $compile, $window, $state, $http, Authentication) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
+    $scope.events = [];
+
+    /* Render Tooltip */
+    $scope.eventRender = function (event, element, view) {
+      element.attr({
+        'tooltip': event.title,
+        'tooltip-append-to-body': true
+      });
+      $compile(element)($scope);
+    };
+
+    $scope.uiConfig = {
+      calendar: {
+        height: 700,
+        editable: false,
+        header: {
+          left: 'title',
+          center: '',
+          right: 'today prev,next'
+        },
+
+        eventRender: $scope.eventRender
+      }
+    };
 
     //Initialize some variables
     $scope.editEvent_flag = 0;
@@ -147,6 +171,8 @@ angular.module('core').controller('HomeController', ['$scope', '$window', '$stat
         console.log('Successful');
         console.log(res);
         $scope.eventList = res.data;
+
+
       }, function (res) {
         console.log('Failed');
         console.log(res);
@@ -216,9 +242,39 @@ angular.module('core').controller('HomeController', ['$scope', '$window', '$stat
     $scope.refreshHandler = function () {
       console.log('refresh');
       if ($scope.authentication.user.roles.indexOf('Organization') >= 0) {
-        $state.go('home.orgDash.eventList');
+        $state.go('orgDash.eventList');
       }
     };
+
+    $scope.getCalEvents = function () {
+      var events = [];
+      $http({
+        method: 'GET',
+        url: '/api/events'
+      }).then(function (res) {
+        console.log('Successful');
+        console.log(res);
+        $scope.eventList = res.data;
+
+        for (var i = 0; i < res.data.length; i++) {
+          var temp = {};
+          temp.title = res.data[i].name;
+          console.log(res.data[i].name);
+          temp.start = res.data[i].dateOfEvent;
+
+          events.push(temp);
+        }
+
+      }, function (res) {
+        console.log('Failed');
+        console.log(res);
+      });
+
+      return events;
+
+    };
+
+    $scope.eventSources = [$scope.events, $scope.getCalEvents()];
 
   }
 ]);
