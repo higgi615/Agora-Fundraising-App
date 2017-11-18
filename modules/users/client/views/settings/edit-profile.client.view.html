@@ -4,7 +4,7 @@
       <fieldset>
         <div class="form-group" show-errors>
           <label for="organization">Organization/Business</label>
-          <input type="text" id="organization" name="organization" class="form-control" ng-model="user.organization" placeholder="Organization/Business" required>
+          <input type="text" id="organization" name="organization" readonly="readonly" class="form-control" ng-model="user.organization" placeholder="Organization/Business" required>
           <div ng-messages="userForm.organization.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Organization/business is required.</p>
           </div>
