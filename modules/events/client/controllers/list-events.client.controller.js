@@ -1,28 +1,12 @@
-// (function () {
-//   'use strict';
-//
-//   angular
-//     .module('events')
-//     .controller('EventsListController', EventsListController);
-//
-//   EventsListController.$inject = ['EventsService'];
-//
-//   function EventsListController(EventsService) {
-//     var vm = this;
-//
-//     vm.events = EventsService.query();
-//
-//   }
-//
-//
-// }());
-
 'use strict';
 
 angular.module('events').controller('EventsListController', ['$scope', '$window', '$state', '$http', 'Authentication',
   function ($scope, $window, $state, $http, Authentication) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
+
+    $scope.sortType = 'name';
+    $scope.sortReverse = false;
 
     //Initialize some variables
     $scope.editEvent_flag = 0;
