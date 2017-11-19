@@ -31,7 +31,7 @@
           <th>Cancel Event</th>
         </tr>
       </thead>
-      <tbody ng-repeat="event in eventList | filter:query:orderBy:sortType:sortReverse">
+      <tbody ng-repeat="event in eventList | filter:query | orderBy:sortType:sortReverse">
         <tr ng-show="$parent.filterOrgEvents(event)">
           <th>{{event.user.displayName}}</th>
           <td>{{event.dateOfEvent | date:"MM'/'dd'/'yyyy"}}</td>
