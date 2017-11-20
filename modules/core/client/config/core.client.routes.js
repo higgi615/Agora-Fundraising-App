@@ -19,7 +19,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
     })
     .state('orgDash', {
       url: '/orgDashboard',
-      templateUrl: 'modules/core/client/views/orgDash.client.view.html'
+      templateUrl: 'modules/core/client/views/orgDash.client.view.html',
+      data: {
+        roles: ['Organization']
+      }
     })
     .state('orgDash.eventList', {
       url: '/eventList',
@@ -39,7 +42,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
     })
     .state('bizDash', {
       url: '/bizDashboard',
-      templateUrl: 'modules/core/client/views/bizDash.client.view.html'
+      templateUrl: 'modules/core/client/views/bizDash.client.view.html',
+      data: {
+        roles: ['Business']
+      }
     })
     .state('bizDash.eventList', {
       url: '/eventList',
