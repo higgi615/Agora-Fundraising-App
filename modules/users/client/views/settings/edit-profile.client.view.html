@@ -3,10 +3,10 @@
     <form name="userForm" ng-submit="updateUserProfile(userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset>
         <div class="form-group" show-errors>
-          <label for="organization">Organization/Business</label>
+          <label for="organization">Student Organization/Business</label>
           <input type="text" id="organization" name="organization" readonly="readonly" class="form-control" ng-model="user.organization" placeholder="Organization/Business" required>
           <div ng-messages="userForm.organization.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Organization/business is required.</p>
+            <p class="help-block error-text" ng-message="required">Student Organization/Business is required.</p>
           </div>
         </div>
         <!--<div class="form-group" show-errors>-->
