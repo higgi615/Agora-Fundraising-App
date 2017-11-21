@@ -37,6 +37,7 @@ body {
     border-width: 1px;
     border-color: black;
     border-style: solid;
+    /*darker background - sexier look*/
     background-color: rgba(137, 137, 137, .95);
 }
 
