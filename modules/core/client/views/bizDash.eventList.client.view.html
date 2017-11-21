@@ -8,6 +8,7 @@
     <table class="table table-striped table-bordered table-hover">
       <thead>
       <tr>
+        <!-- header row that lists info for the organizations that are looking to request a fundraser event -->
         <th>
           <a href="#" ng-click="sortType = 'dateOfEvent'; sortReverse = !sortReverse">
             Date
@@ -32,6 +33,8 @@
         <th></th>
       </tr>
       </thead>
+      <!-- list all of the data for the students orgs that are looking to request an event with this specific
+      busines -->
       <tbody ng-repeat="event in eventList | orderBy:sortType:sortReverse">
       <tr ng-if="filterByUser(event)">
         <td>{{event.dateOfEvent | date:"MM'/'dd'/'yyyy"}}</td>
@@ -51,6 +54,7 @@
   </div>
   <!-- ADD EVENT BUTTON -->
   <div class="row" style="justify-content: center">
+    <!-- Button for business user to create a new event for student orgs to request -->
     <button class="btn" style="display: block; margin:auto; margin-bottom:6px; color: white; background-color: #F5A623;border: solid 1px #D38401" ui-sref="events.create">Create Event</button>
   </div>
 </div>
