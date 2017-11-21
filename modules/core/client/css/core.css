@@ -13,14 +13,14 @@ body {
 
 }
 
-/*.parallax { 
-     The image used 
+/*.parallax {
+     The image used
     background-image: url("img_parallax.jpg");
 
-    Set a specific height 
-    height: 100%; 
+    Set a specific height
+    height: 100%;
 
-     Create the parallax scrolling effect 
+     Create the parallax scrolling effect
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -32,12 +32,12 @@ body {
   margin-bottom: 50px;
 }
 
-.jumbotron {  
+.jumbotron {
     padding: 5px;
     border-width: 1px;
     border-color: black;
     border-style: solid;
-    background-color: rgba(137, 137, 137, .85);
+    background-color: rgba(137, 137, 137, .95);
 }
 
 .container-fluid {
