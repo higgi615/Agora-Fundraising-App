@@ -39,6 +39,20 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
         status: 'Confirmed'
       }];
 
+    //Loads the events database list into the eventList scope variable
+    $scope.loadEventList = function () {
+      $http({
+        method: 'GET',
+        url: '/api/events'
+      }).then(function (res) {
+        console.log('Successful');
+        console.log(res);
+        $scope.eventList = res.data;
+      }, function (res) {
+        console.log('Failed');
+        console.log(res);
+      });
+    };
 
     //Sends a delete request to remove a passed in event from the DB
     $scope.deleteEvent = function (event) {
@@ -139,6 +153,7 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
       }).then(function (res) {
         console.log('Successful accept');
         console.log(index);
+        $scope.loadEventList();
       }, function (res) {
         console.log('Failed accept');
         console.log(res);
@@ -177,20 +192,7 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
       });
     };
 
-    //Loads the events database list into the eventList scope variable
-    $scope.loadEventList = function () {
-      $http({
-        method: 'GET',
-        url: '/api/events'
-      }).then(function (res) {
-        console.log('Successful');
-        console.log(res);
-        $scope.eventList = res.data;
-      }, function (res) {
-        console.log('Failed');
-        console.log(res);
-      });
-    };
+    
 
     //Initially loading the events
     $scope.loadEventList();

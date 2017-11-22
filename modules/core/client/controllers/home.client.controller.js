@@ -54,6 +54,25 @@ angular.module('core').controller('HomeController', ['$scope', '$window', '$stat
       $scope.loadEventList();
     };
 
+    //Sends a delete request to remove a passed in event from the DB
+    $scope.deleteNotification = function (notification) {
+      if ($window.confirm('Are you sure you want to delete?')) {
+
+        $http({
+          method: 'DELETE',
+          url: 'api/notifications/' + notification._id
+        }).then(function (res) {
+          console.log('Successful delete');
+          $scope.loadNotificationList()
+        }, function (res) {
+          console.log('Failed delete');
+          $scope.loadNotificationList()
+        });
+      }
+
+      $scope.loadEventList();
+    };
+
     //Adds the organization name to the organizationsPending list
     $scope.requestEvent = function (event) {
       if (event.organizationsPending.indexOf($scope.authentication.user.displayName) === -1) {
@@ -97,9 +116,7 @@ angular.module('core').controller('HomeController', ['$scope', '$window', '$stat
         }
       }).then(function (res) {
         console.log('Successful accept');
-        console.log(index);
-        console.log($scope.globalEvent);
-        console.log($scope.globalEvent.organizationsPending[index]);
+        
       }, function (res) {
         console.log('Failed accept');
         console.log(res);
@@ -153,12 +170,31 @@ angular.module('core').controller('HomeController', ['$scope', '$window', '$stat
       });
     };
 
+    //Loads the events database list into the eventList scope variable
+    $scope.loadNotificationList = function () {
+      $http({
+        method: 'GET',
+        url: '/api/notifications'
+      }).then(function (res) {
+        console.log('Successful');
+        console.log(res);
+        $scope.notificationList = res.data;
+      }, function (res) {
+        console.log('Failed');
+        console.log(res);
+      });
+    };
+
     //Initially loading the events
     $scope.loadEventList();
 
     //Checks if the event was made by the user
     $scope.filterByUser = function (event) {
       return event.user.displayName === $scope.authentication.user.displayName;
+    };
+
+    $scope.filterNotificationsByUser = function (notification) {
+      return notification.userList.indexOf($scope.authentication.user.displayName)>=0;
     };
 
     //Checks if the user's name is in the organizationsPending list of an event
