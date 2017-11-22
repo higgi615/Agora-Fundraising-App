@@ -43,7 +43,8 @@ var EventSchema = new Schema({
     type: [String]
   },
   organizationConfirmed: {
-    type: String
+    type: String,
+    default: ''
   },
   taxIdRequired: {
     type: Boolean

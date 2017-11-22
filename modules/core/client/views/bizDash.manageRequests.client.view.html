@@ -1,0 +1,27 @@
+<div class="row" style="justify-content: center" ng-controller="EventsListController">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <h2 style="text-align:center">Requests</h2>
+  
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2 col-2">
+      </div>
+      <div class="col-sm-8 col-8">
+        <div class="jumbotron" style="padding:5px;border-width:1px;border-color:black;border-style:solid">
+          <h1 style="text-align: center" >Accept Event</h1>
+          <div class="radio" ng-repeat="org in $parent.globalEvent.organizationsPending">
+            <label><input type="radio" name="orgRadio" ng-model="$parent.index_accept" value={{$index}} >{{org}}</label>
+          </div>
+          <div class="row" style="justify-content: center">
+            <button class="btn" style="display: block; margin:auto; margin-bottom:6px; color: white; background-color: #F5A623;border: solid 1px #D38401" ng-click="acceptEvent(index_accept)">Approve Event</button>
+          </div>
+          <div class="row" style="justify-content: center">
+            <button class="btn" style="display: block; margin:auto; margin-bottom:6px; color: white; background-color: #F5A623;border: solid 1px #D38401" ui-sref="bizDash.eventList">Return to Dashboard</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2 col-2">
+      </div>
+    </div>
+  </div>
+</div>

@@ -59,6 +59,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       url: '/pastEvents',
       templateUrl: 'modules/core/client/views/bizDash.pastEvents.client.view.html'
     })
+    .state('manageRequests', {
+      url: '/manageRequests',
+      templateUrl: 'modules/core/client/views/bizDash.manageRequests.client.view.html'
+    })
     .state('not-found', {
       url: '/not-found',
       templateUrl: 'modules/core/client/views/404.client.view.html',

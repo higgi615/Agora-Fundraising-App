@@ -44,6 +44,37 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
     $scope.deleteEvent = function (event) {
       if ($window.confirm('Are you sure you want to delete?')) {
 
+        if(event.organizationsPending.length > 0){
+          $http({
+            method: 'POST',
+            url: 'api/notifications',
+            data: {
+              data: $scope.authentication.user.displayName + ' has deleted an event on ' + event.dateOfEvent + ' that you requested.',
+              userList : event.organizationsPending
+            }
+          }).then(function (res) {
+          console.log('Successful notification');
+        }, function (res) {
+          console.log('Failed notification');
+        });
+        }
+
+        if(event.organizationConfirmed != ""){
+          $http({
+            method: 'POST',
+            url: 'api/notifications',
+            data: {
+              data: $scope.authentication.user.displayName + ' has deleted an event on ' + event.dateOfEvent + ' that you were confirmed for.',
+              userList : event.organizationConfirmed
+            }
+          }).then(function (res) {
+          console.log('Successful notification');
+        }, function (res) {
+          console.log('Failed notification');
+        });
+        }
+
+
         $http({
           method: 'DELETE',
           url: 'api/events/' + event._id
@@ -88,21 +119,26 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
     };
 
     //Allows a business to change the confirmed org based on it's index in the organizationsPending array
-    $scope.acceptEvent = function (index) {
-      if ($scope.globalEvent.organizationsPending.length === 0) {
+    $scope.acceptEvent = function (index,event) {
+      console.log('here');
+      var orgData;
+      if(event.organizationsPending.length === 0) {
         return;
+      }
+      if(index==""){
+        orgData = "";
+      }else{
+        orgData = event.organizationsPending[index];
       }
       $http({
         method: 'PUT',
-        url: 'api/events/' + $scope.globalEvent._id,
+        url: 'api/events/' + event._id,
         data: {
-          organizationConfirmed: $scope.globalEvent.organizationsPending[index]
+          organizationConfirmed: orgData
         }
       }).then(function (res) {
         console.log('Successful accept');
         console.log(index);
-        console.log($scope.globalEvent);
-        console.log($scope.globalEvent.organizationsPending[index]);
       }, function (res) {
         console.log('Failed accept');
         console.log(res);
@@ -214,6 +250,7 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
     $scope.setGlobalEvent = function (event) {
       console.log('setting event');
       $scope.globalEvent = event;
+      console.log($scope.globalEvent);
     };
 
     $scope.refreshHandler = function () {
