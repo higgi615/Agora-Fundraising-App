@@ -3,12 +3,15 @@
     <form name="userForm" ng-submit="updateUserProfile(userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset>
         <div class="form-group" show-errors>
+          <!-- Allows users to view their biz or student org name, but doesn't allow them to edit it -->
           <label for="organization">Student Organization/Business</label>
           <input type="text" id="organization" name="organization" readonly="readonly" class="form-control" ng-model="user.organization" placeholder="Organization/Business" required>
           <div ng-messages="userForm.organization.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Student Organization/Business is required.</p>
           </div>
         </div>
+        <!-- The below commented code is not needed because we don't want the user to be able to change
+        their first or last name -->
         <!--<div class="form-group" show-errors>-->
           <!--<label for="lastName">Last Name</label>-->
           <!--<input type="text" id="lastName" name="lastName" class="form-control" ng-model="user.lastName" placeholder="Last Name" required>-->
@@ -25,16 +28,21 @@
           <!--</div>-->
         <!--</div>-->
         <div class="form-group" show-errors>
+          <!-- Allows users to edit their email in the case of a transfer of position in the biz or student
+          organization -->
           <label for="username">Email</label>
           <input type="text" id="username" name="username" class="form-control" ng-model="user.username" placeholder="Email" lowercase required>
           <div ng-messages="userForm.username.$error" role="alert">
+            <!-- Error message if the email is not entered -->
             <p class="help-block error-text" ng-message="required">Email is required.</p>
           </div>
         </div>
         <div class="text-center form-group">
+          <!-- Allows profile changes to be updated in the database for the user's account -->
           <button type="submit" class="btn btn-primary">Save Profile</button>
         </div>
         <div ng-show="success" class="text-center text-success">
+          <!-- Visual confirmation for the user to acknowledge that their changes were saved -->
           <strong>Profile Saved Successfully</strong>
         </div>
         <div ng-show="error" class="text-center text-danger">
