@@ -4,6 +4,9 @@
       <div class="col-sm-12 col-12">
         <div class="jumbotron" style="max-height:600px;overflow-y:scroll;overflow-x:hidden;border-width:1px;border-color:black;border-style:solid">
           <h1 style="text-align: center">Request Event</h1>
+          <div><input type="text" class="form-control" placeholder="Search" ng-model="query">
+            <br>
+          </div>
           <table class="table table-striped table-bordered table-hover">
             <thead>
               <tr>
@@ -14,7 +17,7 @@
                 <th>Request Event</th>
               </tr>
             </thead>
-            <tbody ng-repeat="event in eventList">
+            <tbody ng-repeat="event in eventList | filter: query">
               <tr ng-init="eventObj = event" ng-show = "$parent.displayOrgNonRequest(event)">
                 <th>{{event.user.displayName}}</th>
                 <td>{{event.dateOfEvent | date:"MM'/'dd'/'yyyy"}}</td>
