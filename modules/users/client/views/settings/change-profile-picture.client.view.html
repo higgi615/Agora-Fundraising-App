@@ -11,11 +11,35 @@
           </span>
         </div>
         <div class="text-center form-group" ng-show="uploader.queue.length">
-          <button class="btn btn-primary" ng-click="uploadProfilePicture();">Upload</button>
-          <button class="btn btn-default" ng-click="cancelUpload();">Cancel</button>
+          <button class="btn btn-primary" ng-click="uploadProfilePicture()">Upload</button>
+          <button class="btn btn-default" ng-click="cancelUploadProf()">Cancel</button>
         </div>
         <div ng-show="success" class="text-center text-success">
           <strong>Profile Picture Changed Successfully</strong>
+        </div>
+        <div ng-show="error" class="text-center text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="col-xs-offset-1 col-xs-10 col-md-offset-3 col-md-4">
+    <form class="signin form-horizontal">
+      <fieldset>
+        <div class="form-group text-center">
+          <img ng-src="{{eventURL}}" alt="{{user.displayName}}" class="img-thumbnail user-event-picture">
+        </div>
+        <div class="text-center form-group" ng-hide="uploader2.queue.length">
+          <span class="btn btn-default btn-file">
+              Select Image <input type="file" nv-file-select uploader="uploader2">
+          </span>
+        </div>
+        <div class="text-center form-group" ng-show="uploader2.queue.length">
+          <button class="btn btn-primary" ng-click="uploadEventPicture()">Upload</button>
+          <button class="btn btn-default" ng-click="cancelUploadEvent()">Cancel</button>
+        </div>
+        <div ng-show="success" class="text-center text-success">
+          <strong>Event Banner Changed Successfully</strong>
         </div>
         <div ng-show="error" class="text-center text-danger">
           <strong ng-bind="error"></strong>

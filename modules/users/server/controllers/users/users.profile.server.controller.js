@@ -57,11 +57,12 @@ exports.changeProfilePicture = function (req, res) {
   var user = req.user;
   var message = null;
   var upload = multer(config.uploads.profileUpload).single('newProfilePicture');
+  var upload2 = multer(config.uploads.profileUpload).single('newEventPicture');
   var profileUploadFileFilter = require(path.resolve('./config/lib/multer')).profileUploadFileFilter;
   
   // Filtering to upload only images
   upload.fileFilter = profileUploadFileFilter;
-
+  upload2.fileFiler = profileUploadFileFilter;
   if (user) {
     upload(req, res, function (uploadError) {
       if(uploadError) {
@@ -70,6 +71,31 @@ exports.changeProfilePicture = function (req, res) {
         });
       } else {
         user.profileImageURL = config.uploads.profileUpload.dest + req.file.filename;
+
+        user.save(function (saveError) {
+          if (saveError) {
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(saveError)
+            });
+          } else {
+            req.login(user, function (err) {
+              if (err) {
+                res.status(400).send(err);
+              } else {
+                res.json(user);
+              }
+            });
+          }
+        });
+      }
+    });
+    upload2(req, res, function (uploadError) {
+      if(uploadError) {
+        return res.status(400).send({
+          message: 'Error occurred while uploading event banner'
+        });
+      } else {
+        user.eventImageURL = config.uploads.profileUpload.dest + req.file.filename;
 
         user.save(function (saveError) {
           if (saveError) {

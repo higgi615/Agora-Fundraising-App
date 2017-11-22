@@ -114,4 +114,47 @@ exports.eventByID = function (req, res, next, id) {
     req.event = event;
     next();
   });
+
+//   exports.ChangeEventBanner = function (req, res) {
+//   var user = req.user;
+//   var event = req.event;
+//   var message = null;
+//   var upload = multer(config.uploads.profileUpload).single('newProfilePicture');
+//   var profileUploadFileFilter = require(path.resolve('./config/lib/multer')).profileUploadFileFilter;
+  
+//   // Filtering to upload only images
+//   upload.fileFilter = profileUploadFileFilter;
+
+//   if (user) {
+//     upload(req, res, function (uploadError) {
+//       if(uploadError) {
+//         return res.status(400).send({
+//           message: 'Error occurred while uploading event banner'
+//         });
+//       } else {
+//         user.eventImageURL = config.uploads.profileUpload.dest + req.file.filename;
+
+//         user.save(function (saveError) {
+//           if (saveError) {
+//             return res.status(400).send({
+//               message: errorHandler.getErrorMessage(saveError)
+//             });
+//           } else {
+//             req.login(user, function (err) {
+//               if (err) {
+//                 res.status(400).send(err);
+//               } else {
+//                 res.json(user);
+//               }
+//             });
+//           }
+//         });
+//       }
+//     });
+//   } else {
+//     res.status(400).send({
+//       message: 'User is not signed in'
+//     });
+//   }
+// }
 };

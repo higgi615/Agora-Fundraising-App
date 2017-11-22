@@ -184,7 +184,8 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
           startTime: $scope.sTime,
           endTime: $scope.eTime,
           location: $scope.location,
-          taxIdRequired: $scope.requireTax
+          taxIdRequired: $scope.requireTax,
+          banner: $scope.banner
         }
       }).then(function (res) {
         console.log('Successful event');
