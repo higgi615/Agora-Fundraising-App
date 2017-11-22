@@ -7,7 +7,7 @@ angular.module('core').controller('HomeController', ['$scope', '$compile', '$win
     $scope.events = [];
 
     /* Render Tooltip */
-    $scope.eventRender = function (event, element, view) {
+    $scope.eventRender = function (event, element, stick) {
       element.attr({
         'tooltip': event.title,
         'tooltip-append-to-body': true
@@ -17,6 +17,7 @@ angular.module('core').controller('HomeController', ['$scope', '$compile', '$win
 
     $scope.uiConfig = {
       calendar: {
+        defaultTimedEventDuration: '01:00:00',
         height: 700,
         editable: false,
         header: {
@@ -258,11 +259,36 @@ angular.module('core').controller('HomeController', ['$scope', '$compile', '$win
 
         for (var i = 0; i < res.data.length; i++) {
           var temp = {};
-          temp.title = res.data[i].name;
-          console.log(res.data[i].name);
-          temp.start = res.data[i].dateOfEvent;
 
-          events.push(temp);
+          // Extract the date from the dateOfEvent object
+          var dateEvent = new Date(res.data[i].dateOfEvent);
+          var timeEvent = new Date(res.data[i].startTime);
+          var month = dateEvent.getMonth();
+          var year = dateEvent.getFullYear();
+          var date = dateEvent.getDate();
+          var hours = timeEvent.getHours();
+
+          // Used for debugging
+          console.log('Month: ' + month);
+          console.log('Year: ' + year);
+          console.log('Date: ' + date);
+          console.log('Time: ' + hours);
+
+          temp.title = res.data[i].name;
+
+          // Format the date
+          temp.start = new Date(year, month, date, hours);
+
+          // Check to see if the user logged in is the same one who made the event
+          if ($scope.authentication.user.roles.indexOf('Organization') >= 0) {
+            events.push(temp);
+          }
+
+          else {
+            if (res.data[i].user.displayName === $scope.authentication.user.displayName) {
+              events.push(temp);
+            }
+          }
         }
 
       }, function (res) {
