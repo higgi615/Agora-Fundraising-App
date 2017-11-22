@@ -32,7 +32,7 @@
         <th></th>
       </tr>
       </thead>
-      <tbody ng-repeat="event in eventList | orderBy:sortType:sortReverse">
+      <tbody ng-repeat="event in eventList | filter: query | orderBy:sortType:sortReverse">
       <tr ng-if="filterByUser(event)">
         <td>{{event.dateOfEvent | date:"MM'/'dd'/'yyyy"}}</td>
         <td>{{event.organizationsPending.length}}</td>
@@ -41,9 +41,9 @@
         <td>{{event.name}}</td>
         <td>{{event.organizationConfirmed}}</td>
         <td>
-          <button class="btn" style="display: inline-block; margin:auto;background-color: forestgreen; border: solid 1px darkgreen; color:white" ng-click="$parent.setGlobalEvent(event)">Manage requests</button>
-          <button class="btn" style="display: inline-block; margin:auto;background-color: #F5A623;border: solid 1px #D38401; color:white" ui-sref="events.edit({ eventId: event._id })">Edit</button>
-          <button class="btn" style="display: inline-block; margin:auto;background-color: red;border: solid 1px firebrick; color:white" ng-click="deleteEvent(event);loadEventList()">Cancel</button>
+          <button class="btn btn-success" style="display: inline-block; margin:auto; color:white" ng-click="$parent.setGlobalEvent(event)">Manage requests</button>
+          <button class="btn btn-warning" style="display: inline-block; margin:auto; color:white" ui-sref="events.edit({ eventId: event._id })">Edit</button>
+          <button class="btn btn-danger" style="display: inline-block; margin:auto; color:white" ng-click="deleteEvent(event);loadEventList()">Delete Event</button>
         </td>
       </tr>
       </tbody>
