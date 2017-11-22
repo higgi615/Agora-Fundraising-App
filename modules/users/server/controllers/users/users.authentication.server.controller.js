@@ -163,6 +163,7 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
               displayName: providerUserProfile.displayName,
               email: providerUserProfile.email,
               profileImageURL: providerUserProfile.profileImageURL,
+              eventImageURL: providerUserProfile.eventImageURL,
               provider: providerUserProfile.provider,
               providerData: providerUserProfile.providerData
             });

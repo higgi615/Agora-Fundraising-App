@@ -69,6 +69,7 @@
   max-width: 1920px;
   min-height: 262px;
   min-width: 500px;
+  overflow: hidden;
 }
 .btn-primary.raised {
     box-shadow: 0 3px 0 0 #F5A623;

@@ -12,7 +12,7 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
     });
  $scope.uploader2 = new FileUploader({
       url: 'api/users/picture',
-      alias: 'newEventPicture'
+      alias: 'newProfilePicture'
     });
     // Set file uploader image filter
     $scope.uploader.filters.push({
@@ -109,7 +109,7 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
       $scope.success = $scope.error = null;
 
       // Start upload
-      $scope.uploader2.uploadItem();
+      $scope.uploader2.uploadALL();
     };
 
     // Cancel the upload process
