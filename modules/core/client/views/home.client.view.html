@@ -4,7 +4,7 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="item" ng-repeat="event in eventList" ng-class="{active : $first}">
-        <img src="https://media1.s-nbcnews.com/j/newscms/2017_29/2076501/170715-chipotle-restaurant-ew-1227p_5fa0d17495b09c2189e8632005bc9e95.nbcnews-ux-2880-1000.jpg" alt="carousel {{$index}}">
+        <img src={{event.banner}} alt="carousel {{$index}}">
         <div class="carousel-caption">
           <h3 id="eventData">{{event.name}}</h3>
           <h4 id="eventData">{{event.dateOfEvent | date:"MM'/'dd'/'yyyy"}}  {{event.startTime | date:"hh:mm a"}} - {{event.endTime | date:"hh:mm a"}}</h4>

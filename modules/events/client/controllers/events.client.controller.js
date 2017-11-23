@@ -17,12 +17,14 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.upsuccess = null;
+    vm.uperror = null;
 
     vm.imageURL = event.banner;
 
     // Create file uploader instance
     vm.uploader = new FileUploader({
-      url: 'api/events',
+      url: 'api/events/picture',
       alias: 'newEventBanner'
     });
 
@@ -52,7 +54,7 @@
     // Called after the event has successfully uploaded a new picture
     vm.uploader.onSuccessItem = function (fileItem, response, status, headers) {
       // Show success message
-      $scope.success = true;
+      vm.upsuccess = true;
 
       // Populate event object
       vm.event = Authentication.event = response;
@@ -67,13 +69,13 @@
       vm.cancelUpload();
 
       // Show error message
-      vm.error = response.message;
+      vm.uperror = response.message;
     }
 
     // Change event profile picture
     function uploadEventPicture() {
       // Clear messages
-      $scope.success = vm.error = null;
+      vm.upsuccess = vm.uperror = null;
 
       // Start upload
       vm.uploader.uploadAll();

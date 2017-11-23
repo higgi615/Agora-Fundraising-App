@@ -61,12 +61,13 @@
   display: block;
 }
 .user-profile-picture {
-  min-height: 150px;
   max-height: 150px;
+  min-height: 150px;
+  overflow: hidden;
 }
 .user-event-picture {
-  max-height: 1080px;
-  max-width: 1920px;
+  max-height: 262px;
+  max-width: 500px;
   min-height: 262px;
   min-width: 500px;
   overflow: hidden;

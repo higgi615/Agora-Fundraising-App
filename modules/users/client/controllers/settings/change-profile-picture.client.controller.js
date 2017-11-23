@@ -10,10 +10,6 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
       url: 'api/users/picture',
       alias: 'newProfilePicture'
     });
- $scope.uploader2 = new FileUploader({
-      url: 'api/users/picture',
-      alias: 'newProfilePicture'
-    });
     // Set file uploader image filter
     $scope.uploader.filters.push({
       name: 'imageFilter',
@@ -22,7 +18,10 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
         return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
       }
     });
-   
+   $scope.uploader2 = new FileUploader({
+      url: 'api/users/eventBanner',
+      alias: 'newEventPicture'
+    });
     // Set file uploader image filter
     $scope.uploader2.filters.push({
       name: 'imageFilter',
@@ -44,10 +43,10 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
         };
       }
     };
-    $scope.uploader2.onAfterAddingFileEvent = function (fileItem2) {
+    $scope.uploader2.onAfterAddingFile = function (fileItem) {
       if ($window.FileReader) {
         var fileReader = new FileReader();
-        fileReader.readAsDataURL(fileItem2._file);
+        fileReader.readAsDataURL(fileItem._file);
 
         fileReader.onload = function (fileReaderEvent) {
           $timeout(function () {
@@ -68,9 +67,9 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
        $scope.cancelUploadProf();
   
     };
-    $scope.uploader2.onSuccessItem2 = function (fileItem2, response, status, headers) {
+    $scope.uploader2.onSuccessItem = function (fileItem, response, status, headers) {
       // Show success message
-      $scope.success = true;
+      $scope.success2 = true;
 
       // Populate user object
       $scope.user = Authentication.user = response;
@@ -87,12 +86,12 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
       // Show error message
       $scope.error = response.message;
     };
-    $scope.uploader2.onErrorItem2 = function (fileItem2, response, status, headers) {
+    $scope.uploader2.onErrorItem = function (fileItem, response, status, headers) {
       // Clear upload buttons
       //$scope.cancelUploadProf();
       $scope.cancelUploadEvent();
       // Show error message
-      $scope.error = response.message;
+      $scope.error2 = response.message;
     };
 
     // Change user profile picture
@@ -106,10 +105,10 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
 
     $scope.uploadEventPicture = function () {
       // Clear messages
-      $scope.success = $scope.error = null;
+      $scope.success2 = $scope.error2 = null;
 
       // Start upload
-      $scope.uploader2.uploadALL();
+      $scope.uploader2.uploadAll();
     };
 
     // Cancel the upload process
@@ -118,7 +117,7 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
       $scope.imageURL = $scope.user.profileImageURL;
     };
     $scope.cancelUploadEvent = function () {
-      $scope.uploader2.clearQueue();
+      $scope.uploader.clearQueue();
       $scope.eventURL = $scope.user.eventImageURL;
     };
   }
