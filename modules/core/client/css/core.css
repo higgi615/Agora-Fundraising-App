@@ -13,6 +13,100 @@ body {
 
 }
 
+.button-sign-up {
+  background-color: #F5A623;
+  color: white;
+  padding: 1px;
+  border-width:1px;
+  border-color: white;
+  border-style: solid;
+  border-radius: 1px;
+}
+
+.panel-default > .panel-heading-custom {
+  background-image: none;
+  background: #1B5689;
+  color: white;
+}
+
+.mission-statement {
+  color: #F5A623;
+  text-align: center;
+}
+
+.about-container {
+  background-color: rgba(249, 249, 249, 0.85);
+  padding: 20px;
+  border-width:1px;
+  border-color: black;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+.faq-container {
+  background-color: rgba(249, 249, 249, 0.85);
+  padding: 20px;
+  border-width:1px;
+  border-color: black;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+.mission-statement-container {
+  background-color: rgba(27, 86, 137, 0.85);
+  padding: 25px;
+  border-width:1px;
+  border-color: black;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+.hr-about {
+    border: none;
+    height: 3px;
+    /* Set the hr color */
+    color: #F5A623; /* old IE */
+    background-color: #F5A623; /* Modern Browsers */
+}
+
+.origin-story-container {
+  background-color: rgba(249, 249, 249, 0.85);
+  padding: 25px;
+  border-width:1px;
+  border-color: black;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+.origin-story-header {
+  color: black;
+  text-align: center;
+}
+
+.origin-story-content {
+  margin-top: 20px;
+  font-size: 18px;
+  color: black;
+}
+.about-div {
+  background-color: rgba(27, 86, 137, 0.96);
+  z-index: 22;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.faq-div {
+  background-color: rgba(27, 86, 137, 0.96);
+  z-index: 22;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.faq-text {
+  color: F5A623;
+}
+
+
 /*.parallax {
      The image used
     background-image: url("img_parallax.jpg");

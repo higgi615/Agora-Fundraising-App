@@ -27,12 +27,24 @@
     <!--</ul>-->
     <ul class="nav navbar-nav navbar-right" ng-hide="authentication.user">
       <li class="nav-item">
-        <a ui-sref="authentication.signup" style="color:white;text-shadow:none;background-color: transparent;">Sign Up</a>
+        <a ui-sref="home" style="color:white;text-shadow:none;background-color: transparent;">Home</a>
       </li>
-      <li class="divider-vertical"></li>
+      <li class="nav-item">
+        <a ui-sref="authentication.login" style="color:white;text-shadow:none;background-color: transparent;">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a ui-sref="about" style="color:white;text-shadow:none;background-color: transparent;">About</a>
+      </li>
+      <li class="nav-item">
+        <a ui-sref="faq" style="color:white;text-shadow:none;background-color: transparent;">FAQ</a>
+      </li>
       <li class="nav-item">
         <a ui-sref="authentication.login" style="color:white;text-shadow:none;background-color: transparent;">Log In</a>
       </li>
+      <li class="nav-item">
+        <a ui-sref="authentication.signup" class="button-sign-up">Sign Up</a>
+      </li>
+      <li class="divider-vertical"></li>
     </ul>
     <ul class="nav navbar-nav navbar-right" ng-show="authentication.user">
       <li class="dropdown" dropdown>
