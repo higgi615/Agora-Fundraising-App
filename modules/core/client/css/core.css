@@ -10,7 +10,6 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-
 }
 
 .button-sign-up {
@@ -27,6 +26,13 @@ body {
   background-image: none;
   background: #1B5689;
   color: white;
+}
+
+.about-header {
+  font-weight: bolder;
+  font-size: 45px;
+  color: black;
+  text-align: center;
 }
 
 .mission-statement {

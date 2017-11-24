@@ -1,4 +1,4 @@
-<div class="container" ng-controller="HeaderController" style="background-color:#1B5689">
+<!-- <div class="container" ng-controller="HeaderController" style="background-color:#1B5689">
   <div class="navbar-header">
     <button class="navbar-toggle" type="button" ng-click="toggleCollapsibleMenu()">
       <span class="sr-only">Toggle navigation</span>
@@ -9,22 +9,12 @@
     <a style="cursor: pointer" ng-click="logoRedirect()" class="navbar-brand" style="color:white;text-shadow:none">
       <img src="modules\core\client\img\logo_white_png_small.png" alt="logo" width="133px" height="30px" ng-click="logoRedirect()"></img>
     </a>
-  </div>
-  <nav class="collapse navbar-collapse"  collapse="!isCollapsed" role="navigation">
-
-    <!-- Don't need the articles thing -->
-
-    <!--<ul class="nav navbar-nav" ng-if="menu.shouldRender(authentication.user);">-->
-      <!--<li ng-repeat="item in menu.items | orderBy: 'position'" ng-if="item.shouldRender(authentication.user);" ng-switch="item.type" ng-class="{ active: $state.includes(item.state), dropdown: item.type === 'dropdown' }" class="{{item.class}}" dropdown="item.type === 'dropdown'">-->
-        <!--<a ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>-->
-        <!--<ul ng-switch-when="dropdown" class="dropdown-menu">-->
-          <!--<li ng-repeat="subitem in item.items | orderBy: 'position'" ng-if="subitem.shouldRender(authentication.user);" ui-sref-active="active">-->
-            <!--<a ui-sref="{{subitem.state}}" ng-bind="subitem.title"></a>-->
-          <!--</li>-->
-        <!--</ul>-->
-        <!--<a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title"></a>-->
-      <!--</li>-->
-    <!--</ul>-->
+  </div> -->
+  <section ng-controller="HeaderController">
+  <nav class="navbar-collapse navbar-light navbar-fixed-top" style="background-color: #1B5689;" collapse="!isCollapsed" role="navigation">
+    <a style="cursor: pointer" ng-click="logoRedirect()" class="navbar-brand" style="color:white;text-shadow:none">
+      <img src="modules\core\client\img\logo_white_png_small.png" alt="logo" width="133px" height="30px" ng-click="logoRedirect()"></img>
+    </a>
     <ul class="nav navbar-nav navbar-right" ng-hide="authentication.user">
       <li class="nav-item">
         <a ui-sref="home" style="color:white;text-shadow:none;background-color: transparent;">Home</a>
@@ -47,6 +37,19 @@
       <li class="divider-vertical"></li>
     </ul>
     <ul class="nav navbar-nav navbar-right" ng-show="authentication.user">
+      <li class="nav-item">
+        <a ui-sref="home" style="color:white;text-shadow:none;background-color: transparent;">Home</a>
+      </li>
+      <li class="nav-item">
+        <a ui-sref="authentication.login" style="color:white;text-shadow:none;background-color: transparent;">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a ui-sref="about" style="color:white;text-shadow:none;background-color: transparent;">About</a>
+      </li>
+      <li class="nav-item">
+        <a ui-sref="faq" style="color:white;text-shadow:none;background-color: transparent;">FAQ</a>
+      </li>
+      <li class="divider-vertical"></li>
       <li class="dropdown" dropdown>
         <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button" style="color:white;text-shadow:none;background-color: transparent;">
           <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
@@ -56,15 +59,6 @@
           <li ui-sref-active="active">
             <a ui-sref="settings.profile">Settings</a>
           </li>
-          <!-- <li ui-sref-active="active">
-            <a ui-sref="settings.picture">Change Profile Picture</a>
-          </li>
-          <li ui-sref-active="active" ng-show="authentication.user.provider === 'local'">
-            <a ui-sref="settings.password">Change Password</a>
-          </li>
-          <!--<li ui-sref-active="active">-->
-            <!--<a ui-sref="settings.accounts">Manage Social Accounts</a>-->
-          <!--</li>-->
           <li class="divider"></li>
           <li>
             <a href="/api/auth/signout" target="_self" ng-click="$scope.signedIn = 0">Log Out</a>
@@ -73,4 +67,4 @@
       </li>
     </ul>
   </nav>
-</div>
+</section>

@@ -76,14 +76,20 @@
     margin-top: 3px;
 }
 
+.signup-header {
+  font-size: 30px;
+  color: black;
+  text-align: center;
+}
+
 .signup-container{
-padding: 25px;
-padding-bottom: 1px;
-border-width:1px;
-border-color: black;
-border-radius: 5px;
-border-style: solid;
-background-color:rgba(249, 249, 249, 0.85)
+  padding: 20px;
+  padding-bottom: 1px;
+  border-width:1px;
+  border-color: black;
+  border-radius: 5px;
+  border-style: solid;
+  background-color: rgba(249, 249, 249, 0.85);
 }
 
 .settings-container{
@@ -92,14 +98,20 @@ border-width:1px;
 border-color: black;
 border-radius: 5px;
 border-style: solid;
-background-color:rgba(137, 137, 137, 0.3)
+background-color: rgba(137, 137, 137, 0.3);
+}
+
+.login-header {
+  font-size: 30px;
+  color: black;
+  text-align: center;
 }
 
 .login-container{
-padding: 25px;
-border-width:1px;
-border-color: black;
-border-style: solid;
-border-radius: 5px;
-background-color:rgba(249, 249, 249, 0.85)
+  padding: 20px;
+  border-width:1px;
+  border-color: black;
+  border-style: solid;
+  border-radius: 5px;
+  background-color: rgba(249, 249, 249, 0.85);
 }
