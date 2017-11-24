@@ -15,14 +15,20 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
       $scope.isCollapsed = !$scope.isCollapsed;
     };
 
-    $scope.logoRedirect = function () {
-      if ($scope.authentication.user.roles.indexOf('Organization') >= 0) {
-        $state.go('orgDash.eventList');
-        console.log($state.current);
+// FIX THIS FUNCTION!!
+    $scope.logoRedirect = function (signedIn) {
+      if (!signedIn){
+        $state.go('home');
       }
-      if ($scope.authentication.user.roles.indexOf('Business') >= 0) {
-        $state.go('bizDash.eventList');
-        console.log($state.current);
+      else {
+        if ($scope.authentication.user.roles.indexOf('Organization') >= 0) {
+          $state.go('orgDash.eventList');
+          console.log($state.current);
+        }
+        else if ($scope.authentication.user.roles.indexOf('Business') >= 0) {
+          $state.go('bizDash.eventList');
+          console.log($state.current);
+        }
       }
     };
 

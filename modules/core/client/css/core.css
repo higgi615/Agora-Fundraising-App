@@ -44,6 +44,7 @@ body {
 }
 
 .faq-container {
+  overflow: auto;
   background-color: rgba(249, 249, 249, 0.85);
   padding: 20px;
   border-width:1px;

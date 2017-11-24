@@ -77,14 +77,15 @@
 }
 
 .signup-container{
-padding: 15px;
+padding: 25px;
 padding-bottom: 1px;
 border-width:1px;
 border-color: black;
 border-radius: 5px;
 border-style: solid;
-background-color:rgba(137, 137, 137, 0.68)
+background-color:rgba(249, 249, 249, 0.85)
 }
+
 .settings-container{
 padding: 5px;
 border-width:1px;
@@ -93,11 +94,12 @@ border-radius: 5px;
 border-style: solid;
 background-color:rgba(137, 137, 137, 0.3)
 }
+
 .login-container{
-padding: 15px;
+padding: 25px;
 border-width:1px;
 border-color: black;
 border-style: solid;
 border-radius: 5px;
-background-color:rgba(137, 137, 137, 0.3)
+background-color:rgba(249, 249, 249, 0.85)
 }
