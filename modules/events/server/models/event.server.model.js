@@ -36,14 +36,16 @@ var EventSchema = new Schema({
     type: String,
     default: 'modules/events/client/img/default_banner.jpg'
   },
-  /*organizationsPending: [{
-   organizationName: String
-   }],*/
+  hostOrg: {
+    type: String,
+    default: 'biz'
+  },
   organizationsPending: {
     type: [String]
   },
   organizationConfirmed: {
-    type: String
+    type: String,
+    default: ''
   },
   taxIdRequired: {
     type: Boolean

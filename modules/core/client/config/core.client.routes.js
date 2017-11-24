@@ -36,6 +36,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       url: '/pastEvents',
       templateUrl: 'modules/core/client/views/orgDash.pastEvents.client.view.html'
     })
+    .state('orgDash.notifications', {
+      url: '/notifications',
+      templateUrl: 'modules/core/client/views/orgDash.notifications.client.view.html'
+    })
     .state('requestEvent', {
       url: '/requestEvent',
       templateUrl: 'modules/core/client/views/orgDash.requestEvent.client.view.html'
@@ -58,6 +62,14 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
     .state('bizDash.pastEvents', {
       url: '/pastEvents',
       templateUrl: 'modules/core/client/views/bizDash.pastEvents.client.view.html'
+    })
+    .state('bizDash.notifications', {
+      url: '/notifications',
+      templateUrl: 'modules/core/client/views/bizDash.notifications.client.view.html'
+    })
+    .state('manageRequests', {
+      url: '/manageRequests',
+      templateUrl: 'modules/core/client/views/bizDash.manageRequests.client.view.html'
     })
     .state('not-found', {
       url: '/not-found',
