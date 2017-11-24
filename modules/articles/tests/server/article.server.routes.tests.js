@@ -56,13 +56,13 @@
 //   });
 //
 //   it('should be able to save an article if logged in', function (done) {
-//     agent.post('/api/auth/signin')
+//     agent.post('/api/auth/login')
 //       .send(credentials)
 //       .expect(200)
-//       .end(function (signinErr, signinRes) {
-//         // Handle signin error
-//         if (signinErr) {
-//           return done(signinErr);
+//       .end(function (loginErr, loginRes) {
+//         // Handle login error
+//         if (loginErr) {
+//           return done(loginErr);
 //         }
 //
 //         // Get the userId
@@ -114,13 +114,13 @@
 //     // Invalidate title field
 //     article.title = '';
 //
-//     agent.post('/api/auth/signin')
+//     agent.post('/api/auth/login')
 //       .send(credentials)
 //       .expect(200)
-//       .end(function (signinErr, signinRes) {
-//         // Handle signin error
-//         if (signinErr) {
-//           return done(signinErr);
+//       .end(function (loginErr, loginRes) {
+//         // Handle login error
+//         if (loginErr) {
+//           return done(loginErr);
 //         }
 //
 //         // Get the userId
@@ -141,13 +141,13 @@
 //   });
 //
 //   it('should be able to update an article if signed in', function (done) {
-//     agent.post('/api/auth/signin')
+//     agent.post('/api/auth/login')
 //       .send(credentials)
 //       .expect(200)
-//       .end(function (signinErr, signinRes) {
-//         // Handle signin error
-//         if (signinErr) {
-//           return done(signinErr);
+//       .end(function (loginErr, loginRes) {
+//         // Handle login error
+//         if (loginErr) {
+//           return done(loginErr);
 //         }
 //
 //         // Get the userId
@@ -248,13 +248,13 @@
 //   });
 //
 //   it('should be able to delete an article if signed in', function (done) {
-//     agent.post('/api/auth/signin')
+//     agent.post('/api/auth/login')
 //       .send(credentials)
 //       .expect(200)
-//       .end(function (signinErr, signinRes) {
-//         // Handle signin error
-//         if (signinErr) {
-//           return done(signinErr);
+//       .end(function (loginErr, loginRes) {
+//         // Handle login error
+//         if (loginErr) {
+//           return done(loginErr);
 //         }
 //
 //         // Get the userId

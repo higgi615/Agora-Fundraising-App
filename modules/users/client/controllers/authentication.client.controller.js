@@ -40,7 +40,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       });
     };
 
-    $scope.signin = function (isValid) {
+    $scope.login = function (isValid) {
       $scope.error = null;
 
       if (!isValid) {
@@ -49,7 +49,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         return false;
       }
 
-      $http.post('/api/auth/signin', $scope.credentials).success(function (response) {
+      $http.post('/api/auth/login', $scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
         $scope.authentication.user = response;
         //$scope.signedIn = 1;

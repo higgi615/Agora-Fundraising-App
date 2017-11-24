@@ -49,14 +49,14 @@
     });
 
     describe('Authorization Interceptor', function() {
-      it('should redirect to signIn page for unauthorized access', function () {
+      it('should redirect to login page for unauthorized access', function () {
         var response = {
           status: 401,
           config: {}
         };
         var promise = authInterceptor.responseError(response);
         expect($q.reject).toHaveBeenCalled();
-        expect($state.transitionTo).toHaveBeenCalledWith('authentication.signin');
+        expect($state.transitionTo).toHaveBeenCalledWith('authentication.login');
       });
     });
   });

@@ -84,13 +84,13 @@ describe('User Create/Login/Logout tests:', function () {
   });
 
   it('should be able to login successfully and logout successfully', function (done) {
-    agent.post('/api/auth/signin')
+    agent.post('/api/auth/login')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
+      .end(function (loginErr, loginRes) {
+        // Handle login error
+        if (loginErr) {
+          return done(loginErr);
         }
 
         // Logout
@@ -118,13 +118,13 @@ describe('User Create/Login/Logout tests:', function () {
 
   // it('should be able to delete user successfully', function (done) {
   //   // Sign-in user first
-  //   agent.post('/api/auth/signin')
+  //   agent.post('/api/auth/login')
   //     .send(credentials)
   //     .expect(200)
-  //     .end(function (signinErr, signinRes) {
-  //       // Handle signin error
-  //       if (signinErr) {
-  //         return done(signinErr);
+  //     .end(function (loginErr, loginRes) {
+  //       // Handle login error
+  //       if (loginErr) {
+  //         return done(loginErr);
   //       }
   //
   //       // Then, delete the user
@@ -143,13 +143,13 @@ describe('User Create/Login/Logout tests:', function () {
   // });
 
   // it('should not be able to retrieve a list of users if not admin', function (done) {
-  //   agent.post('/api/auth/signin')
+  //   agent.post('/api/auth/login')
   //     .send(credentials)
   //     .expect(200)
-  //     .end(function (signinErr, signinRes) {
-  //       // Handle signin error
-  //       if (signinErr) {
-  //         return done(signinErr);
+  //     .end(function (loginErr, loginRes) {
+  //       // Handle login error
+  //       if (loginErr) {
+  //         return done(loginErr);
   //       }
   //
   //       // Request list of users
@@ -170,13 +170,13 @@ describe('User Create/Login/Logout tests:', function () {
   //
   //   user.save(function (err) {
   //     should.not.exist(err);
-  //     agent.post('/api/auth/signin')
+  //     agent.post('/api/auth/login')
   //       .send(credentials)
   //       .expect(200)
-  //       .end(function (signinErr, signinRes) {
-  //         // Handle signin error
-  //         if (signinErr) {
-  //           return done(signinErr);
+  //       .end(function (loginErr, loginRes) {
+  //         // Handle login error
+  //         if (loginErr) {
+  //           return done(loginErr);
   //         }
   //
   //         // Request list of users
@@ -201,13 +201,13 @@ describe('User Create/Login/Logout tests:', function () {
   //
   //   user.save(function (err) {
   //     should.not.exist(err);
-  //     agent.post('/api/auth/signin')
+  //     agent.post('/api/auth/login')
   //       .send(credentials)
   //       .expect(200)
-  //       .end(function (signinErr, signinRes) {
-  //         // Handle signin error
-  //         if (signinErr) {
-  //           return done(signinErr);
+  //       .end(function (loginErr, loginRes) {
+  //         // Handle login error
+  //         if (loginErr) {
+  //           return done(loginErr);
   //         }
   //
   //         // Get single user information from the database
@@ -233,13 +233,13 @@ describe('User Create/Login/Logout tests:', function () {
   //
   //   user.save(function (err) {
   //     should.not.exist(err);
-  //     agent.post('/api/auth/signin')
+  //     agent.post('/api/auth/login')
   //       .send(credentials)
   //       .expect(200)
-  //       .end(function (signinErr, signinRes) {
-  //         // Handle signin error
-  //         if (signinErr) {
-  //           return done(signinErr);
+  //       .end(function (loginErr, loginRes) {
+  //         // Handle login error
+  //         if (loginErr) {
+  //           return done(loginErr);
   //         }
   //
   //         // Get single user information from the database
@@ -276,13 +276,13 @@ describe('User Create/Login/Logout tests:', function () {
   //
   //   user.save(function (err) {
   //     should.not.exist(err);
-  //     agent.post('/api/auth/signin')
+  //     agent.post('/api/auth/login')
   //       .send(credentials)
   //       .expect(200)
-  //       .end(function (signinErr, signinRes) {
-  //         // Handle signin error
-  //         if (signinErr) {
-  //           return done(signinErr);
+  //       .end(function (loginErr, loginRes) {
+  //         // Handle login error
+  //         if (loginErr) {
+  //           return done(loginErr);
   //         }
   //
   //         agent.delete('/api/users/' + user._id)
@@ -470,13 +470,13 @@ describe('User Create/Login/Logout tests:', function () {
   // });
   //
   // it('should be able to change user own password successfully', function (done) {
-  //   agent.post('/api/auth/signin')
+  //   agent.post('/api/auth/login')
   //     .send(credentials)
   //     .expect(200)
-  //     .end(function (signinErr, signinRes) {
-  //       // Handle signin error
-  //       if (signinErr) {
-  //         return done(signinErr);
+  //     .end(function (loginErr, loginRes) {
+  //       // Handle login error
+  //       if (loginErr) {
+  //         return done(loginErr);
   //       }
   //
   //       // Change password
@@ -499,13 +499,13 @@ describe('User Create/Login/Logout tests:', function () {
   // });
   //
   // it('should not be able to change user own password if wrong verifyPassword is given', function (done) {
-  //   agent.post('/api/auth/signin')
+  //   agent.post('/api/auth/login')
   //     .send(credentials)
   //     .expect(200)
-  //     .end(function (signinErr, signinRes) {
-  //       // Handle signin error
-  //       if (signinErr) {
-  //         return done(signinErr);
+  //     .end(function (loginErr, loginRes) {
+  //       // Handle login error
+  //       if (loginErr) {
+  //         return done(loginErr);
   //       }
   //
   //       // Change password
@@ -528,13 +528,13 @@ describe('User Create/Login/Logout tests:', function () {
   // });
   //
   // it('should not be able to change user own password if wrong currentPassword is given', function (done) {
-  //   agent.post('/api/auth/signin')
+  //   agent.post('/api/auth/login')
   //     .send(credentials)
   //     .expect(200)
-  //     .end(function (signinErr, signinRes) {
-  //       // Handle signin error
-  //       if (signinErr) {
-  //         return done(signinErr);
+  //     .end(function (loginErr, loginRes) {
+  //       // Handle login error
+  //       if (loginErr) {
+  //         return done(loginErr);
   //       }
   //
   //       // Change password
@@ -557,13 +557,13 @@ describe('User Create/Login/Logout tests:', function () {
   // });
   //
   // it('should not be able to change user own password if no new password is at all given', function (done) {
-  //   agent.post('/api/auth/signin')
+  //   agent.post('/api/auth/login')
   //     .send(credentials)
   //     .expect(200)
-  //     .end(function (signinErr, signinRes) {
-  //       // Handle signin error
-  //       if (signinErr) {
-  //         return done(signinErr);
+  //     .end(function (loginErr, loginRes) {
+  //       // Handle login error
+  //       if (loginErr) {
+  //         return done(loginErr);
   //       }
   //
   //       // Change password
@@ -606,13 +606,13 @@ describe('User Create/Login/Logout tests:', function () {
   // });
   //
   // it('should be able to get own user details successfully', function (done) {
-  //   agent.post('/api/auth/signin')
+  //   agent.post('/api/auth/login')
   //     .send(credentials)
   //     .expect(200)
-  //     .end(function (signinErr, signinRes) {
-  //       // Handle signin error
-  //       if (signinErr) {
-  //         return done(signinErr);
+  //     .end(function (loginErr, loginRes) {
+  //       // Handle login error
+  //       if (loginErr) {
+  //         return done(loginErr);
   //       }
   //
   //       // Get own user details
@@ -652,13 +652,13 @@ describe('User Create/Login/Logout tests:', function () {
   //
   //   user.save(function (err) {
   //     should.not.exist(err);
-  //     agent.post('/api/auth/signin')
+  //     agent.post('/api/auth/login')
   //       .send(credentials)
   //       .expect(200)
-  //       .end(function (signinErr, signinRes) {
-  //         // Handle signin error
-  //         if (signinErr) {
-  //           return done(signinErr);
+  //       .end(function (loginErr, loginRes) {
+  //         // Handle login error
+  //         if (loginErr) {
+  //           return done(loginErr);
   //         }
   //
   //         var userUpdate = {
@@ -693,13 +693,13 @@ describe('User Create/Login/Logout tests:', function () {
   //
   //   user.save(function (err) {
   //     should.not.exist(err);
-  //     agent.post('/api/auth/signin')
+  //     agent.post('/api/auth/login')
   //       .send(credentials)
   //       .expect(200)
-  //       .end(function (signinErr, signinRes) {
-  //         // Handle signin error
-  //         if (signinErr) {
-  //           return done(signinErr);
+  //       .end(function (loginErr, loginRes) {
+  //         // Handle login error
+  //         if (loginErr) {
+  //           return done(loginErr);
   //         }
   //
   //         var userUpdate = {
@@ -750,13 +750,13 @@ describe('User Create/Login/Logout tests:', function () {
   //   user2.save(function (err) {
   //     should.not.exist(err);
   //
-  //     agent.post('/api/auth/signin')
+  //     agent.post('/api/auth/login')
   //       .send(credentials2)
   //       .expect(200)
-  //       .end(function (signinErr, signinRes) {
-  //         // Handle signin error
-  //         if (signinErr) {
-  //           return done(signinErr);
+  //       .end(function (loginErr, loginRes) {
+  //         // Handle login error
+  //         if (loginErr) {
+  //           return done(loginErr);
   //         }
   //
   //         var userUpdate = {
@@ -802,13 +802,13 @@ describe('User Create/Login/Logout tests:', function () {
   //   user2.save(function (err) {
   //     should.not.exist(err);
   //
-  //     agent.post('/api/auth/signin')
+  //     agent.post('/api/auth/login')
   //       .send(credentials2)
   //       .expect(200)
-  //       .end(function (signinErr, signinRes) {
-  //         // Handle signin error
-  //         if (signinErr) {
-  //           return done(signinErr);
+  //       .end(function (loginErr, loginRes) {
+  //         // Handle login error
+  //         if (loginErr) {
+  //           return done(loginErr);
   //         }
   //
   //         var userUpdate = {
@@ -880,13 +880,13 @@ describe('User Create/Login/Logout tests:', function () {
   // });
   //
   // it('should be able to change profile picture if signed in', function (done) {
-  //   agent.post('/api/auth/signin')
+  //   agent.post('/api/auth/login')
   //     .send(credentials)
   //     .expect(200)
-  //     .end(function (signinErr, signinRes) {
-  //       // Handle signin error
-  //       if (signinErr) {
-  //         return done(signinErr);
+  //     .end(function (loginErr, loginRes) {
+  //       // Handle login error
+  //       if (loginErr) {
+  //         return done(loginErr);
   //       }
   //
   //       agent.post('/api/users/picture')
@@ -909,13 +909,13 @@ describe('User Create/Login/Logout tests:', function () {
   // });
   //
   // it('should not be able to change profile picture if attach a picture with a different field name', function (done) {
-  //   agent.post('/api/auth/signin')
+  //   agent.post('/api/auth/login')
   //     .send(credentials)
   //     .expect(200)
-  //     .end(function (signinErr, signinRes) {
-  //       // Handle signin error
-  //       if (signinErr) {
-  //         return done(signinErr);
+  //     .end(function (loginErr, loginRes) {
+  //       // Handle login error
+  //       if (loginErr) {
+  //         return done(loginErr);
   //       }
   //
   //       agent.post('/api/users/picture')
@@ -978,13 +978,13 @@ describe('User Delete tests:', function () {
 
   it('should be able to delete user successfully', function (done) {
     // Sign-in user first
-    agent.post('/api/auth/signin')
+    agent.post('/api/auth/login')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
+      .end(function (loginErr, loginRes) {
+        // Handle login error
+        if (loginErr) {
+          return done(loginErr);
         }
 
         // Then, delete the user

@@ -47,12 +47,12 @@
         });
       }));
 
-      describe('$scope.signin()', function () {
+      describe('$scope.login()', function () {
         it('should login with a correct user and password', function () {
           // Test expected GET request
-          $httpBackend.when('POST', '/api/auth/signin').respond(200, 'Fred');
+          $httpBackend.when('POST', '/api/auth/login').respond(200, 'Fred');
 
-          scope.signin(true);
+          scope.login(true);
           $httpBackend.flush();
 
           // Test scope value
@@ -75,9 +75,9 @@
             spyOn($state, 'go');
 
             // Test expected GET request
-            $httpBackend.when('POST', '/api/auth/signin').respond(200, 'Fred');
+            $httpBackend.when('POST', '/api/auth/login').respond(200, 'Fred');
 
-            scope.signin(true);
+            scope.login(true);
             $httpBackend.flush();
 
             // Test scope value
@@ -88,11 +88,11 @@
 
         it('should fail to log in with nothing', function () {
           // Test expected POST request
-          $httpBackend.expectPOST('/api/auth/signin').respond(400, {
+          $httpBackend.expectPOST('/api/auth/login').respond(400, {
             'message': 'Missing credentials'
           });
 
-          scope.signin(true);
+          scope.login(true);
           $httpBackend.flush();
 
           // Test scope value
@@ -105,11 +105,11 @@
           scope.credentials = 'Bar';
 
           // Test expected POST request
-          $httpBackend.expectPOST('/api/auth/signin').respond(400, {
+          $httpBackend.expectPOST('/api/auth/login').respond(400, {
             'message': 'Unknown user'
           });
 
-          scope.signin(true);
+          scope.login(true);
           $httpBackend.flush();
 
           // Test scope value

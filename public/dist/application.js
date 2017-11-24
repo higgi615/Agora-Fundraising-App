@@ -54,7 +54,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(["$rootScope"
         if (Authentication.user !== undefined && typeof Authentication.user === 'object') {
           $state.go('forbidden');
         } else {
-          $state.go('authentication.signin').then(function () {
+          $state.go('authentication.login').then(function () {
             storePreviousState(toState, toParams);
           });
         }
@@ -1093,7 +1093,7 @@ angular.module('core').factory('authInterceptor', ['$q', '$injector',
         if (!rejection.config.ignoreAuthModule) {
           switch (rejection.status) {
             case 401:
-              $injector.get('$state').transitionTo('authentication.signin');
+              $injector.get('$state').transitionTo('authentication.login');
               break;
             case 403:
               $injector.get('$state').transitionTo('forbidden');
@@ -1559,8 +1559,8 @@ angular.module('users').config(['$httpProvider',
                 // Deauthenticate the global user
                 Authentication.user = null;
 
-                // Redirect to signin page
-                $location.path('signin');
+                // Redirect to login page
+                $location.path('login');
                 break;
               case 403:
                 // Add unauthorized behaviour
@@ -1615,9 +1615,9 @@ angular.module('users').config(['$stateProvider',
         url: '/signup',
         templateUrl: 'modules/users/client/views/authentication/signup.client.view.html'
       })
-      .state('authentication.signin', {
-        url: '/signin?err',
-        templateUrl: 'modules/users/client/views/authentication/signin.client.view.html'
+      .state('authentication.login', {
+        url: '/login?err',
+        templateUrl: 'modules/users/client/views/authentication/login.client.view.html'
       })
       .state('password', {
         abstract: true,
@@ -1756,7 +1756,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       });
     };
 
-    $scope.signin = function (isValid) {
+    $scope.login = function (isValid) {
       $scope.error = null;
 
       if (!isValid) {
@@ -1765,7 +1765,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         return false;
       }
 
-      $http.post('/api/auth/signin', $scope.credentials).success(function (response) {
+      $http.post('/api/auth/login', $scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
         $scope.authentication.user = response;
         //$scope.signedIn = 1;

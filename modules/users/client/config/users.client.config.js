@@ -13,8 +13,8 @@ angular.module('users').config(['$httpProvider',
                 // Deauthenticate the global user
                 Authentication.user = null;
 
-                // Redirect to signin page
-                $location.path('signin');
+                // Redirect to login page
+                $location.path('login');
                 break;
               case 403:
                 // Add unauthorized behaviour

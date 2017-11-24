@@ -296,13 +296,13 @@ describe('Users E2E Tests:', function () {
 
   });
 
-  describe('Signin Validation', function () {
+  describe('login Validation', function () {
 
     it('Should report missing credentials', function () {
       //Make sure user is signed out first
       signout();
-      //Sign in
-      browser.get('http://localhost:3001/authentication/signin');
+      //Log In
+      browser.get('http://localhost:3001/authentication/login');
       // Click Submit button
       element(by.css('button[type="submit"]')).click();
       // Username Error
@@ -314,8 +314,8 @@ describe('Users E2E Tests:', function () {
     it('Verify that the user is logged in', function() {
       //Make sure user is signed out first
       signout();
-      //Sign in
-      browser.get('http://localhost:3001/authentication/signin');
+      //Log In
+      browser.get('http://localhost:3001/authentication/login');
       // Enter UserName
       element(by.model('credentials.username')).sendKeys(user1.username);
       // Enter Password

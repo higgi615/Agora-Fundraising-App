@@ -96,7 +96,7 @@ angular.module('ui.calendar', [])
                 );
             };
 
-            // Track changes in array of objects by assigning id tokens to each element and watching the scope for changes in the tokens
+            // Track changes in array of objects by asloging id tokens to each element and watching the scope for changes in the tokens
             // @param {Array|Function} arraySource array of objects to watch
             // @param tokenFn {Function} that returns the token for a given object
             // @return {Object}

@@ -70,13 +70,13 @@ describe('Events CRUD tests', function () {
   });
 
   it('should be able to save a Event if logged in', function (done) {
-    agent.post('/api/auth/signin')
+    agent.post('/api/auth/login')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
+      .end(function (loginErr, loginRes) {
+        // Handle login error
+        if (loginErr) {
+          return done(loginErr);
         }
 
         // Get the userId
@@ -128,13 +128,13 @@ describe('Events CRUD tests', function () {
     // Invalidate name field
     events.name = '';
 
-    agent.post('/api/auth/signin')
+    agent.post('/api/auth/login')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
+      .end(function (loginErr, loginRes) {
+        // Handle login error
+        if (loginErr) {
+          return done(loginErr);
         }
 
         // Get the userId
@@ -155,13 +155,13 @@ describe('Events CRUD tests', function () {
   });
 
   it('should be able to update an Event if signed in', function (done) {
-    agent.post('/api/auth/signin')
+    agent.post('/api/auth/login')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
+      .end(function (loginErr, loginRes) {
+        // Handle login error
+        if (loginErr) {
+          return done(loginErr);
         }
 
         // Get the userId
@@ -262,13 +262,13 @@ describe('Events CRUD tests', function () {
   });
 
   it('should be able to delete an Events if signed in', function (done) {
-    agent.post('/api/auth/signin')
+    agent.post('/api/auth/login')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
+      .end(function (loginErr, loginRes) {
+        // Handle login error
+        if (loginErr) {
+          return done(loginErr);
         }
 
         // Get the userId
@@ -351,13 +351,13 @@ describe('Events CRUD tests', function () {
   //       return done(err);
   //     }
   //
-  //     agent.post('/api/auth/signin')
+  //     agent.post('/api/auth/login')
   //       .send(_creds)
   //       .expect(200)
-  //       .end(function (signinErr, signinRes) {
-  //         // Handle signin error
-  //         if (signinErr) {
-  //           return done(signinErr);
+  //       .end(function (loginErr, loginRes) {
+  //         // Handle login error
+  //         if (loginErr) {
+  //           return done(loginErr);
   //         }
   //
   //         // Get the userId
@@ -380,12 +380,12 @@ describe('Events CRUD tests', function () {
   //
   //             // force the Events to have an orphaned user reference
   //             orphan.remove(function () {
-  //               // now signin with valid user
-  //               agent.post('/api/auth/signin')
+  //               // now login with valid user
+  //               agent.post('/api/auth/login')
   //                 .send(credentials)
   //                 .expect(200)
   //                 .end(function (err, res) {
-  //                   // Handle signin error
+  //                   // Handle login error
   //                   if (err) {
   //                     return done(err);
   //                   }

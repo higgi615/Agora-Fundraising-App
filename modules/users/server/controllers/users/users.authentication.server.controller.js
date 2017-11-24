@@ -9,9 +9,9 @@ var path = require('path'),
   passport = require('passport'),
   User = mongoose.model('User');
 
-// URLs for which user can't be redirected on signin
+// URLs for which user can't be redirected on login
 var noReturnUrls = [
-  '/authentication/signin',
+  '/authentication/login',
   '/authentication/signup'
 ];
 
@@ -53,9 +53,9 @@ exports.signup = function (req, res) {
 };
 
 /**
- * Signin after passport authentication
+ * login after passport authentication
  */
-exports.signin = function (req, res, next) {
+exports.login = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     if (err || !user) {
       res.status(400).send(info);
@@ -89,7 +89,7 @@ exports.signout = function (req, res) {
 exports.oauthCall = function (strategy, scope) {
   return function (req, res, next) {
     // Set redirection path on session.
-    // Do not redirect to a signin or signup page
+    // Do not redirect to a login or signup page
     if (noReturnUrls.indexOf(req.query.redirect_to) === -1) {
       req.session.redirect_to = req.query.redirect_to;
     }
@@ -109,14 +109,14 @@ exports.oauthCallback = function (strategy) {
 
     passport.authenticate(strategy, function (err, user, redirectURL) {
       if (err) {
-        return res.redirect('/authentication/signin?err=' + encodeURIComponent(errorHandler.getErrorMessage(err)));
+        return res.redirect('/authentication/login?err=' + encodeURIComponent(errorHandler.getErrorMessage(err)));
       }
       if (!user) {
-        return res.redirect('/authentication/signin');
+        return res.redirect('/authentication/login');
       }
       req.login(user, function (err) {
         if (err) {
-          return res.redirect('/authentication/signin');
+          return res.redirect('/authentication/login');
         }
 
         return res.redirect(redirectURL || sessionRedirectURL || '/');

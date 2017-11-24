@@ -9170,7 +9170,7 @@ function $HttpProvider() {
      *
      * ## Security Considerations
      *
-     * When designing web applications, consider security threats from:
+     * When deloging web applications, consider security threats from:
      *
      * - [JSON vulnerability](http://haacked.com/archive/2008/11/20/anatomy-of-a-subtle-json-vulnerability.aspx)
      * - [XSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery)
@@ -16470,7 +16470,7 @@ var originUrl = urlResolve(window.location.href);
  *
  * Implementation Notes for non-IE browsers
  * ----------------------------------------
- * Assigning a URL to the href property of an anchor DOM node, even one attached to the DOM,
+ * Asloging a URL to the href property of an anchor DOM node, even one attached to the DOM,
  * results both in the normalizing and parsing of the URL.  Normalizing means that a relative
  * URL will be resolved into an absolute URL in the context of the application document.
  * Parsing means that the anchor node's host, hostname, protocol, port, pathname and related
@@ -16484,7 +16484,7 @@ var originUrl = urlResolve(window.location.href);
  * browsers.  However, the parsed components will not be set if the URL assigned did not specify
  * them.  (e.g. if you assign a.href = "foo", then a.protocol, a.host, etc. will be empty.)  We
  * work around that by performing the parsing in a 2nd step by taking a previously normalized
- * URL (e.g. by assigning to a.href) and assigning it a.href again.  This correctly populates the
+ * URL (e.g. by asloging to a.href) and asloging it a.href again.  This correctly populates the
  * properties such as protocol, hostname, port, etc.
  *
  * References:

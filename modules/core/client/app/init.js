@@ -30,7 +30,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
         if (Authentication.user !== undefined && typeof Authentication.user === 'object') {
           $state.go('forbidden');
         } else {
-          $state.go('authentication.signin').then(function () {
+          $state.go('authentication.login').then(function () {
             storePreviousState(toState, toParams);
           });
         }
