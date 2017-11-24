@@ -33,7 +33,7 @@
       </tr>
       </thead>
       <tbody ng-repeat="event in eventList | orderBy:sortType:sortReverse">
-      <tr ng-if="filterByUser(event)">
+      <tr ng-if="filterByUser(event) && !filterEventsDate(event)">
         <td>{{event.dateOfEvent | date:"MM'/'dd'/'yyyy"}}</td>
         <td>{{event.organizationsPending.length}}</td>
         <td>{{event.startTime | date:"hh':'mm a"}} - {{event.endTime | date:"hh':'mm a"}}</td>
