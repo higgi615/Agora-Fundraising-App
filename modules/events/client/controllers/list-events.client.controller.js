@@ -56,7 +56,7 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
 
     //Sends a delete request to remove a passed in event from the DB
     $scope.deleteEvent = function (event) {
-      if ($window.confirm('Are you sure you want to delete?')) {
+      if ($window.confirm('Are you sure you want to delete this event?')) {
 
         if(event.organizationsPending.length > 0){
           $http({
@@ -218,22 +218,29 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
         });
       }
       var newConfirmed = event.organizationConfirmed;
-      if (newConfirmed === $scope.authentication.user.displayName) {
-        newConfirmed = '';
-      }
-      $http({
-        method: 'PUT',
-        url: 'api/events/' + event._id,
-        data: {
-          organizationsPending: event.organizationsPending.splice(event.organizationsPending.indexOf($scope.authentication.user.displayName), 1),
-          organizationConfirmed: newConfirmed
+
+      if ($window.confirm('Are you sure you want to cancel this request?')) {
+
+        console.log(event.organizationsPending.splice(event.organizationsPending.indexOf($scope.authentication.user.displayName), 1));
+
+        if (newConfirmed === $scope.authentication.user.displayName) {
+          newConfirmed = '';
         }
-      }).then(function (res) {
-        console.log('Successful org event delete');
-      }, function (res) {
-        console.log('Failed org event delete');
-        console.log(res);
-      });
+
+        $http({
+          method: 'PUT',
+          url: 'api/events/' + event._id,
+          data: {
+            organizationsPending: event.organizationsPending.splice(event.organizationsPending.indexOf($scope.authentication.user.displayName), 1),
+            organizationConfirmed: newConfirmed
+          }
+        }).then(function (res) {
+          console.log('Successful org event delete');
+        }, function (res) {
+          console.log('Failed org event delete');
+          console.log(res);
+        });
+      }
     };
 
     
@@ -249,6 +256,14 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
     //Checks if the user's name is in the organizationsPending list of an event
     $scope.filterOrgEvents = function (event) {
       return event.organizationsPending.indexOf($scope.authentication.user.displayName) !== -1;
+    };
+
+    // Checks if the date of the event has already passed or not
+    $scope.filterEventsDate = function (event) {
+      var dte = new Date();
+      console.log('Event Date: ' + event.dateOfEvent);
+      console.log('Current Date: ' + dte.toISOString());
+      return dte.toISOString() > event.dateOfEvent;
     };
 
     //Allows a business to create an event

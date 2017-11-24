@@ -31,9 +31,9 @@
         <th>Accepted Organization</th>
         <th></th>
       </tr>
-    </thead>
-    <tbody ng-repeat="event in eventList | orderBy:sortType:sortReverse">
-      <tr ng-if="filterByUser(event)">
+      </thead>
+      <tbody ng-repeat="event in eventList | filter: query | orderBy:sortType:sortReverse">
+      <tr ng-if="filterByUser(event) && !filterEventsDate(event)">
         <td>{{event.dateOfEvent | date:"MM'/'dd'/'yyyy"}}</td>
         <td>
           <div style="max-height:75px;overflow-y: auto">
