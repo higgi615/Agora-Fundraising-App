@@ -175,6 +175,14 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
       return event.organizationsPending.indexOf($scope.authentication.user.displayName) !== -1;
     };
 
+    // Checks if the date of the event has already passed or not
+    $scope.filterEventsDate = function (event) {
+      var dte = new Date();
+      console.log('Event Date: ' + event.dateOfEvent);
+      console.log('Current Date: ' + dte.toISOString());
+      return dte.toISOString() > event.dateOfEvent;
+    };
+
     //Allows a business to create an event
     $scope.createEvent = function () {
       console.log($scope.name);
