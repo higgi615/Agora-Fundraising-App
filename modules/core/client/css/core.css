@@ -6,25 +6,38 @@ body {
     /*https://www.pexels.com/photo/armchairs-blur-business-chair-296883/ */
     background-image: url("https://static.pexels.com/photos/296883/pexels-photo-296883.jpeg");
     height: 100%;
-    background-size: cover;
-    position: relative;
+    background-attachment: fixed;
+    background-position: center;
     background-repeat: no-repeat;
+    background-size: cover;
 
 }
 
+/*.parallax {
+     The image used
+    background-image: url("img_parallax.jpg");
+
+    Set a specific height
+    height: 100%;
+
+     Create the parallax scrolling effect
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}*/
+
 .content {
-    margin-top: 50px;
-    margin-bottom: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .jumbotron {
-    height: 100%;
-    overflow: scroll;
     padding: 5px;
     border-width: 1px;
     border-color: black;
     border-style: solid;
-    background-color: rgba(137, 137, 137, .85)
+    background-color: rgba(137, 137, 137, .95);
 }
 
 .container-fluid {
@@ -74,11 +87,21 @@ a:hover .header-profile-image {
 }
 
 .carousel {
-    height: 100%;
+    margin: auto;
     border-width: 3px;
     border-color: white;
     border-style: solid;
+    max-width: 85%;
 }
+/*
+.carousel-caption {
+  background-image: radial-gradient(rgba(255,255,255,0), rgba(255,255,255,1));
+}*/
+
+/*.carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+    max-height: 100%;
+}*/
 
 h1, h2, th, label {
     color: black;
@@ -86,4 +109,5 @@ h1, h2, th, label {
 
 #eventData {
     color: white;
+    mix-blend-mode: hard-light;
 }

@@ -42,7 +42,7 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
 
     //Sends a delete request to remove a passed in event from the DB
     $scope.deleteEvent = function (event) {
-      if ($window.confirm('Are you sure you want to delete?')) {
+      if ($window.confirm('Are you sure you want to delete this event?')) {
 
         $http({
           method: 'DELETE',
@@ -121,24 +121,30 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
 
     //Allows an organizations to delete their name from the event that is passed in
     $scope.deleteOrgRequest = function (event) {
-      console.log(event.organizationsPending.splice(event.organizationsPending.indexOf($scope.authentication.user.displayName), 1));
       var newConfirmed = event.organizationConfirmed;
-      if (newConfirmed === $scope.authentication.user.displayName) {
-        newConfirmed = '';
-      }
-      $http({
-        method: 'PUT',
-        url: 'api/events/' + event._id,
-        data: {
-          organizationsPending: event.organizationsPending.splice(event.organizationsPending.indexOf($scope.authentication.user.displayName), 1),
-          organizationConfirmed: newConfirmed
+
+      if ($window.confirm('Are you sure you want to cancel this request?')) {
+
+        console.log(event.organizationsPending.splice(event.organizationsPending.indexOf($scope.authentication.user.displayName), 1));
+
+        if (newConfirmed === $scope.authentication.user.displayName) {
+          newConfirmed = '';
         }
-      }).then(function (res) {
-        console.log('Successful org event delete');
-      }, function (res) {
-        console.log('Failed org event delete');
-        console.log(res);
-      });
+
+        $http({
+          method: 'PUT',
+          url: 'api/events/' + event._id,
+          data: {
+            organizationsPending: event.organizationsPending.splice(event.organizationsPending.indexOf($scope.authentication.user.displayName), 1),
+            organizationConfirmed: newConfirmed
+          }
+        }).then(function (res) {
+          console.log('Successful org event delete');
+        }, function (res) {
+          console.log('Failed org event delete');
+          console.log(res);
+        });
+      }
     };
 
     //Loads the events database list into the eventList scope variable
