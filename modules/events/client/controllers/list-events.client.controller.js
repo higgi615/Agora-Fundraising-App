@@ -58,34 +58,34 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
     $scope.deleteEvent = function (event) {
       if ($window.confirm('Are you sure you want to delete this event?')) {
 
-        if(event.organizationsPending.length > 0){
+        if (event.organizationsPending.length > 0) {
           $http({
             method: 'POST',
             url: 'api/notifications',
             data: {
               data: $scope.authentication.user.displayName + ' has deleted an event on ' + event.dateOfEvent + ' that you requested.',
-              userList : event.organizationsPending
+              userList: event.organizationsPending
             }
           }).then(function (res) {
-          console.log('Successful notification');
-        }, function (res) {
-          console.log('Failed notification');
-        });
+            console.log('Successful notification');
+          }, function (res) {
+            console.log('Failed notification');
+          });
         }
 
-        if(event.organizationConfirmed != ""){
+        if (event.organizationConfirmed !== '') {
           $http({
             method: 'POST',
             url: 'api/notifications',
             data: {
               data: $scope.authentication.user.displayName + ' has deleted an event on ' + event.dateOfEvent + ' that you were confirmed for.',
-              userList : event.organizationConfirmed
+              userList: event.organizationConfirmed
             }
           }).then(function (res) {
-          console.log('Successful notification');
-        }, function (res) {
-          console.log('Failed notification');
-        });
+            console.log('Successful notification');
+          }, function (res) {
+            console.log('Failed notification');
+          });
         }
 
 
@@ -111,17 +111,17 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
       }
 
       $http({
-            method: 'POST',
-            url: 'api/notifications',
-            data: {
-              data: $scope.authentication.user.displayName + ' has requested an event on ' + event.dateOfEvent + ' that you created.',
-              userList : event.user.displayName
-            }
-          }).then(function (res) {
-          console.log('Successful notification');
-        }, function (res) {
-          console.log('Failed notification');
-        });
+        method: 'POST',
+        url: 'api/notifications',
+        data: {
+          data: $scope.authentication.user.displayName + ' has requested an event on ' + event.dateOfEvent + ' that you created.',
+          userList: event.user.displayName
+        }
+      }).then(function (res) {
+        console.log('Successful notification');
+      }, function (res) {
+        console.log('Failed notification');
+      });
 
       $http({
         method: 'PUT',
@@ -147,15 +147,15 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
     };
 
     //Allows a business to change the confirmed org based on it's index in the organizationsPending array
-    $scope.acceptEvent = function (index,event) {
+    $scope.acceptEvent = function (index, event) {
       console.log('here');
       var orgData;
-      if(event.organizationsPending.length === 0) {
+      if (event.organizationsPending.length === 0) {
         return;
       }
-      if(index==""){
-        orgData = "";
-      }else{
+      if (index === '') {
+        orgData = '';
+      } else {
         orgData = event.organizationsPending[index];
       }
 
@@ -175,17 +175,17 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
       });
 
       $http({
-            method: 'POST',
-            url: 'api/notifications',
-            data: {
-              data: $scope.authentication.user.displayName + ' approved your request for an event on ' + event.dateOfEvent,
-              userList : orgData
-            }
-          }).then(function (res) {
-          console.log('Successful notification');
-        }, function (res) {
-          console.log('Failed notification');
-        });
+        method: 'POST',
+        url: 'api/notifications',
+        data: {
+          data: $scope.authentication.user.displayName + ' approved your request for an event on ' + event.dateOfEvent,
+          userList: orgData
+        }
+      }).then(function (res) {
+        console.log('Successful notification');
+      }, function (res) {
+        console.log('Failed notification');
+      });
     };
 
     //Returns true if the organization's name is not on the organizationsPending array
@@ -202,16 +202,16 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
     $scope.deleteOrgRequest = function (event) {
       console.log(event.organizationsPending.splice(event.organizationsPending.indexOf($scope.authentication.user.displayName), 1));
 
-      if(event.organizationConfirmed == $scope.authentication.user.displayName){
+      if (event.organizationConfirmed === $scope.authentication.user.displayName) {
         console.log(event.user.displayName);
         $http({
-            method: 'POST',
-            url: 'api/notifications',
-            data: {
-              data: $scope.authentication.user.displayName + ' cancelled an event that was previously approved on ' + event.dateOfEvent,
-              userList : event.user.displayName
-            }
-          }).then(function (res) {
+          method: 'POST',
+          url: 'api/notifications',
+          data: {
+            data: $scope.authentication.user.displayName + ' cancelled an event that was previously approved on ' + event.dateOfEvent,
+            userList: event.user.displayName
+          }
+        }).then(function (res) {
           console.log('Successful notification');
         }, function (res) {
           console.log('Failed notification');
@@ -243,7 +243,6 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
       }
     };
 
-    
 
     //Initially loading the events
     $scope.loadEventList();

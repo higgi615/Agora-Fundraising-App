@@ -5,7 +5,7 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Notification = mongoose.model('Notification'),
+  Notifications = mongoose.model('Notification'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -13,7 +13,7 @@ var path = require('path'),
  * Create a Notification
  */
 exports.create = function(req, res) {
-  var notification = new Notification(req.body);
+  var notification = new Notifications(req.body);
   notification.user = req.user;
 
   notification.save(function(err) {
@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Notifications
  */
 exports.list = function(req, res) {
-  Notification.find().sort('-created').populate('user', 'displayName').exec(function(err, notifications) {
+  Notifications.find().sort('-created').populate('user', 'displayName').exec(function(err, notifications) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +103,7 @@ exports.notificationByID = function(req, res, next, id) {
     });
   }
 
-  Notification.findById(id).populate('user', 'displayName').exec(function (err, notification) {
+  Notifications.findById(id).populate('user', 'displayName').exec(function (err, notification) {
     if (err) {
       return next(err);
     } else if (!notification) {

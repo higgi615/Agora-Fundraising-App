@@ -88,10 +88,10 @@ angular.module('core').controller('HomeController', ['$scope', '$compile', '$win
           url: 'api/notifications/' + notification._id
         }).then(function (res) {
           console.log('Successful delete');
-          $scope.loadNotificationList()
+          $scope.loadNotificationList();
         }, function (res) {
           console.log('Failed delete');
-          $scope.loadNotificationList()
+          $scope.loadNotificationList();
         });
       }
 
@@ -107,17 +107,17 @@ angular.module('core').controller('HomeController', ['$scope', '$compile', '$win
       }
 
       $http({
-            method: 'POST',
-            url: 'api/notifications',
-            data: {
-              data: $scope.authentication.user.displayName + ' has requested an event on ' + event.dateOfEvent + ' that you created.',
-              userList : event.user.$soid
-            }
-          }).then(function (res) {
-          console.log('Successful notification');
-        }, function (res) {
-          console.log('Failed notification');
-        });
+        method: 'POST',
+        url: 'api/notifications',
+        data: {
+          data: $scope.authentication.user.displayName + ' has requested an event on ' + event.dateOfEvent + ' that you created.',
+          userList: event.user.$soid
+        }
+      }).then(function (res) {
+        console.log('Successful notification');
+      }, function (res) {
+        console.log('Failed notification');
+      });
 
       $http({
         method: 'PUT',
@@ -155,7 +155,7 @@ angular.module('core').controller('HomeController', ['$scope', '$compile', '$win
         }
       }).then(function (res) {
         console.log('Successful accept');
-        
+
       }, function (res) {
         console.log('Failed accept');
         console.log(res);
@@ -176,16 +176,16 @@ angular.module('core').controller('HomeController', ['$scope', '$compile', '$win
     $scope.deleteOrgRequest = function (event) {
       console.log(event.organizationsPending.splice(event.organizationsPending.indexOf($scope.authentication.user.displayName), 1));
 
-      if(event.organizationConfirmed == $scope.authentication.user.displayName){
+      if (event.organizationConfirmed === $scope.authentication.user.displayName) {
         console.log(event);
         $http({
-            method: 'POST',
-            url: 'api/notifications',
-            data: {
-              data: $scope.authentication.user.displayName + ' cancelled an event that was previously approved on ' + event.dateOfEvent,
-              userList : event.user.$oid
-            }
-          }).then(function (res) {
+          method: 'POST',
+          url: 'api/notifications',
+          data: {
+            data: $scope.authentication.user.displayName + ' cancelled an event that was previously approved on ' + event.dateOfEvent,
+            userList: event.user.$oid
+          }
+        }).then(function (res) {
           console.log('Successful notification');
         }, function (res) {
           console.log('Failed notification');
@@ -252,7 +252,7 @@ angular.module('core').controller('HomeController', ['$scope', '$compile', '$win
     };
 
     $scope.filterNotificationsByUser = function (notification) {
-      return notification.userList.indexOf($scope.authentication.user.displayName)>=0 || notification.userList.indexOf($scope.authentication.user._id.$oid) >= 0;
+      return notification.userList.indexOf($scope.authentication.user.displayName) >= 0 || notification.userList.indexOf($scope.authentication.user._id.$oid) >= 0;
     };
 
     //Checks if the user's name is in the organizationsPending list of an event
