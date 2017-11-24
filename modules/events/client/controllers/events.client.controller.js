@@ -32,6 +32,7 @@
         return false;
       }
 
+      vm.event.hostOrg = vm.authentication.user.displayName;
       // TODO: move create/update logic to service
       if (vm.event._id) {
         vm.event.$update(successCallback, errorCallback);
@@ -41,6 +42,7 @@
 
       // On success creation of an event, route back to the event list page
       function successCallback(res) {
+        console.log(vm.event);
         $state.go('bizDash.eventList', {
           eventId: res._id
         });

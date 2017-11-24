@@ -109,6 +109,20 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
       } else {
         return;
       }
+
+      $http({
+            method: 'POST',
+            url: 'api/notifications',
+            data: {
+              data: $scope.authentication.user.displayName + ' has requested an event on ' + event.dateOfEvent + ' that you created.',
+              userList : event.user.displayName
+            }
+          }).then(function (res) {
+          console.log('Successful notification');
+        }, function (res) {
+          console.log('Failed notification');
+        });
+
       $http({
         method: 'PUT',
         url: 'api/events/' + event._id,
@@ -144,6 +158,7 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
       }else{
         orgData = event.organizationsPending[index];
       }
+
       $http({
         method: 'PUT',
         url: 'api/events/' + event._id,
@@ -158,6 +173,19 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
         console.log('Failed accept');
         console.log(res);
       });
+
+      $http({
+            method: 'POST',
+            url: 'api/notifications',
+            data: {
+              data: $scope.authentication.user.displayName + ' approved your request for an event on ' + event.dateOfEvent,
+              userList : orgData
+            }
+          }).then(function (res) {
+          console.log('Successful notification');
+        }, function (res) {
+          console.log('Failed notification');
+        });
     };
 
     //Returns true if the organization's name is not on the organizationsPending array
@@ -173,6 +201,22 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
     //Allows an organizations to delete their name from the event that is passed in
     $scope.deleteOrgRequest = function (event) {
       console.log(event.organizationsPending.splice(event.organizationsPending.indexOf($scope.authentication.user.displayName), 1));
+
+      if(event.organizationConfirmed == $scope.authentication.user.displayName){
+        console.log(event.user.displayName);
+        $http({
+            method: 'POST',
+            url: 'api/notifications',
+            data: {
+              data: $scope.authentication.user.displayName + ' cancelled an event that was previously approved on ' + event.dateOfEvent,
+              userList : event.user.displayName
+            }
+          }).then(function (res) {
+          console.log('Successful notification');
+        }, function (res) {
+          console.log('Failed notification');
+        });
+      }
       var newConfirmed = event.organizationConfirmed;
       if (newConfirmed === $scope.authentication.user.displayName) {
         newConfirmed = '';
@@ -222,7 +266,8 @@ angular.module('events').controller('EventsListController', ['$scope', '$window'
           startTime: $scope.sTime,
           endTime: $scope.eTime,
           location: $scope.location,
-          taxIdRequired: $scope.requireTax
+          taxIdRequired: $scope.requireTax,
+          hostOrg: $scope.authentication.user.displayName
         }
       }).then(function (res) {
         console.log('Successful event');
