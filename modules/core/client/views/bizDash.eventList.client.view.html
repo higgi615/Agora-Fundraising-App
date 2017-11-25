@@ -1,7 +1,7 @@
 <div class="row" style="justify-content: center" ng-controller="EventsListController">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <h2 style="text-align:center">Requests</h2>
-  <div><input type="text" class="form-control" placeholder="Search" ng-model="query">
+  <h2 style="text-align:center">Event Requests</h2>
+  <div><input type="text" class="form-control" placeholder="Search list of created events" ng-model="query">
     <br>
   </div>
   <div class = "panel" style="max-height: 300px">
@@ -29,7 +29,7 @@
         </a>
         </th>
         <th>Accepted Organization</th>
-        <th></th>
+        <th>Event Settings</th>
       </tr>
       </thead>
       <tbody ng-repeat="event in eventList | filter: query | orderBy:sortType:sortReverse">
@@ -41,9 +41,9 @@
         <td>{{event.name}}</td>
         <td>{{event.organizationConfirmed}}</td>
         <td>
-          <button class="btn btn-success" style="display: inline-block; margin:auto; color:white" ng-click="$parent.setGlobalEvent(event)">Manage requests</button>
-          <button class="btn btn-warning" style="display: inline-block; margin:auto; color:white" ui-sref="events.edit({ eventId: event._id })">Edit</button>
-          <button class="btn btn-danger" style="display: inline-block; margin:auto; color:white" ng-click="deleteEvent(event);loadEventList()">Delete Event</button>
+          <button class="btn btn-success" style="text-align: center; display: inline-block; margin:auto; color:white" ng-click="$parent.setGlobalEvent(event)">Manage<br>Requests</button>
+          <button class="btn btn-warning" style="text-align: center; display: inline-block; margin:auto; color:white" ui-sref="events.edit({ eventId: event._id })">Edit<br>Event</button>
+          <button class="btn btn-danger" style="text-align: center; display: inline-block; margin:auto; color:white" ng-click="deleteEvent(event);loadEventList()">Delete<br>Event</button>
         </td>
       </tr>
       </tbody>

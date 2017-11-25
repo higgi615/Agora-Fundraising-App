@@ -1,7 +1,7 @@
 <div class="row" style="justify-content: center" ng-controller="EventsListController">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <h2 style="text-align:center">Requests</h2>
-  <div><input type="text" class="form-control" placeholder="Search" ng-model="query">
+  <h2 style="text-align:center">Requested Events</h2>
+  <div><input type="text" class="form-control" placeholder="Search list of requested events" ng-model="query">
     <br>
   </div>
   <div class = "panel" style="max-height: 300px;overflow: auto">
@@ -28,7 +28,7 @@
             <span ng-show="sortType == 'startTime' && !sortReverse" class="fa fa-caret-down"></span>
           </a></th>
           <th>Status</th>
-          <th>Cancel Event</th>
+          <th>Event Settings</th>
         </tr>
       </thead>
       <tbody ng-repeat="event in eventList | filter:query | orderBy:sortType:sortReverse">
@@ -39,7 +39,7 @@
           <td>{{event.startTime | date:"hh':'mm"}} - {{event.endTime | date:"hh':'mm"}}</td>
           <td>{{generateStatus(event)}}
             <td>
-              <button class="btn btn-danger" style="display: block; margin:auto" ng-click="deleteOrgRequest(event)">Cancel</button>
+              <button class="btn btn-danger" style="display: block; margin:auto" ng-click="deleteOrgRequest(event)">Cancel Event<br>Request</button>
             </td>
           </td>
         </tr>

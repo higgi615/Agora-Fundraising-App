@@ -1,8 +1,14 @@
-.event-create-form-container{
-    padding: 25px;
-    border-width:1px;
-    border-color: black;
-    border-style: solid;
-    border-radius: 5px;
-    background-color:rgba(249, 249, 249, 0.85)
+.event-container {
+  overflow: auto;
+  background-color: rgba(249, 249, 249, 0.85);
+  padding: 25px;
+  border-width:1px;
+  border-color: black;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+.event-container-header {
+  font-size: 35px;
+  text-align: center;
 }

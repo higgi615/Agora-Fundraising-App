@@ -2,29 +2,44 @@
   <div class="container-fluid" ng-controller="EventsListController">
     <div class="row">
       <div class="col-sm-12 col-12">
-        <div class="jumbotron" style="max-height:600px;overflow-y:scroll;overflow-x:hidden;border-width:1px;border-color:black;border-style:solid">
-          <h1 style="text-align: center">Request Event</h1>
-          <div><input type="text" class="form-control" placeholder="Search" ng-model="query">
+        <div class="event-container">
+          <h2 style="text-align: center">Request Event</h2>
+          <div><input type="text" class="form-control" placeholder="Search list of created events" ng-model="query">
             <br>
           </div>
           <table class="table table-striped table-bordered table-hover">
             <thead>
               <tr>
-                <th>Business Name</th>
-                <th>Date</th>
-                <th>Location</th>
-                <th>Time</th>
+                <th><a href="#" ng-click="sortType = 'user.displayName'; sortReverse = !sortReverse">
+                  Description
+                  <span ng-show="sortType == 'user.displayName' && !sortReverse" class="fa fa-caret-down"></span>
+                </a>
+                </th>
+                <th>
+                  <a href="#" ng-click="sortType = 'dateOfEvent'; sortReverse = !sortReverse">
+                    Date
+                    <span ng-show="sortType == 'dateOfEvent' && !sortReverse" class="fa fa-caret-down"></span>
+                  </a>
+                </th>
+                <th><a href="#" ng-click="sortType = 'location'; sortReverse = !sortReverse">
+                  Location
+                  <span ng-show="sortType == 'location' && !sortReverse" class="fa fa-caret-down"></span>
+                </a></th>
+                <th><a href="#" ng-click="sortType = 'startTime'; sortReverse = !sortReverse">
+                  Time
+                  <span ng-show="sortType == 'startTime' && !sortReverse" class="fa fa-caret-down"></span>
+                </a></th>
                 <th>Request Event</th>
               </tr>
             </thead>
-            <tbody ng-repeat="event in eventList | filter: query">
+            <tbody ng-repeat="event in eventList | filter: query | orderBy:sortType:sortReverse">
               <tr ng-init="eventObj = event" ng-show = "$parent.displayOrgNonRequest(event)">
                 <th>{{event.user.displayName}}</th>
                 <td>{{event.dateOfEvent | date:"MM'/'dd'/'yyyy"}}</td>
                 <td>{{event.location}}</td>
                 <td>{{event.startTime | date:"hh':'mm"}} - {{event.endTime | date:"hh':'mm"}}</td>
                 <td>
-                  <button class="btn" style="display: block; margin:auto; background-color: green;border: solid 1px darkgreen;color:white" ng-click="$parent.requestEvent(event)">Request</button>
+                  <button class="btn" style="display: block; margin:auto; background-color: green;border: solid 1px darkgreen;color:white" ng-click="$parent.requestEvent(event)">Request Event</button>
                 </td>
               </tr>
             </tbody>
